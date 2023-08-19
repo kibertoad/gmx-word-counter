@@ -33,6 +33,15 @@ describe('wordCounter', () => {
       testCalculation('\n', 'en', 0)
     })
 
+    // ToDo fix dravidian language support
+    it.skip('Counts dravidian languages', () => {
+      testCalculation(
+        "പല ഡെസ്‌ക്‌ടോപ്പ് പബ്ലിഷിംഗ് പാക്കേജുകളും വെബ് പേജ് എഡിറ്റർമാരും ഇപ്പോൾ ലോറം ഇപ്‌സം അവരുടെ ഡിഫോൾട്ട് മോഡൽ ടെക്‌സ്‌റ്റായി ഉപയോഗിക്കുന്നു, 'ലോറെം ഇപ്‌സം' എന്നതിനായുള്ള തിരയൽ ശൈശവാവസ്ഥയിലുള്ള നിരവധി വെബ്‌സൈറ്റുകളെ കണ്ടെത്തും.",
+        'te',
+        23,
+      )
+    })
+
     it('Counts GMX factor languages', () => {
       testCalculation('\u65E5\u672C\u8A9E', 'ja', 1)
       testCalculation('\uD55C\uAD6D\uC5B4', 'ko', 1)
