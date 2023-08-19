@@ -12,6 +12,14 @@ function testCalculation(text: string, expectedCounts: Counts) {
 }
 
 describe('characterCounter', () => {
+  it('skips if no text is provided', () => {
+    testCalculation(undefined as unknown as string, {
+      punctuation: 0,
+      total: 0,
+      whiteSpace: 0,
+    })
+  })
+
   it('calculates amount of characters in a simple Latin text', () => {
     testCalculation('The quick brown fox jumps over the lazy dog', {
       punctuation: 0,

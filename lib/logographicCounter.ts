@@ -21,6 +21,9 @@ const LOCALE_COUNT_FACTORS: Record<LocaleId, number> = {
 
 export function getCharacterCountFactor(locale: LocaleId): number {
   const countFactor = LOCALE_COUNT_FACTORS[locale]
+
+  // This should never happen, as we are checking before
+  /* c8 ignore next 3 */
   if (!countFactor) {
     throw new Error(`Unsupported locale: ${locale}`)
   }
