@@ -9,8 +9,16 @@ function testCalculation(text: string, locale: string, expectedWords: number) {
 
 describe('wordCounter', () => {
   describe('countWords', () => {
-    it('Counts words in a Latin segment', () => {
+    it('Counts words in a Latin text', () => {
       testCalculation('abc def ghj. Also other', 'en', 5)
+    })
+
+    it('Counts words with apostrophes', () => {
+      testCalculation("d'une famille d'or.", 'fr', 3)
+    })
+
+    it('Counts words with ellipsis', () => {
+      testCalculation('What can I say... Sometimes it be like that', 'en', 9)
     })
 
     it('Counts 0 words for undefined', () => {
