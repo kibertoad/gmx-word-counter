@@ -30,7 +30,11 @@ export function countCharacters(originalText: string): Counts {
 
   for (var i = 0; i < text.length; i++) {
     const cp = text.codePointAt(i)!
-    const cc = Array.from(text.charAt(i)).length // This gives the count of characters represented by the code point.
+
+    // Check for surrogate pair and increment `i` if found
+    if (cp > 0xffff) {
+      i++
+    }
 
     // GMX TotalCharacterCount excludes whitespace.
     if (isWhitespace(cp)) {
@@ -39,9 +43,9 @@ export function countCharacters(originalText: string): Counts {
     }
 
     let isInWord = false
-    if (i > 0 && i < text.length - cc) {
+    if (i > 0 && i < text.length - 1) {
       const prev = text.codePointAt(i - 1)!
-      const next = text.codePointAt(i + cc)!
+      const next = text.codePointAt(i + 1)!
       isInWord = isCpUnicodeAlphanumeric(prev) && isCpUnicodeAlphanumeric(next)
     }
 
