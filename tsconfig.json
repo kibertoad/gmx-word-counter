@@ -10,7 +10,7 @@
     "types": ["node", "vitest/globals"],
     "strict": true,
     "moduleResolution": "node",
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
