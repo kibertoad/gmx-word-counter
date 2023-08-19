@@ -75,6 +75,10 @@ describe('punctuationUtils', () => {
       expect(isPunctuation(`я`)).toBe(false)
       expect(isPunctuation(`š`)).toBe(false)
       expect(isPunctuation(`0`)).toBe(false)
+
+      expect(isPunctuation(`\u00E9`)).toBe(false)
+      expect(isPunctuation(`\u00E8`)).toBe(false)
+      expect(isPunctuation(`\u00E7`)).toBe(false)
     })
   })
 })

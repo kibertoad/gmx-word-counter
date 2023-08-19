@@ -1,38 +1,43 @@
 import { countWords } from './wordCounter'
 import { expect } from 'vitest'
 
+function testCalculation(text: string, locale: string, expectedWords: number) {
+  const characterCount = countWords(text, locale)
+
+  expect(characterCount).toBe(expectedWords)
+}
+
 describe('wordCounter', () => {
   describe('countWords', () => {
     it('Counts words in a Latin segment', () => {
-      const segment = 'abc def ghj. Also other'
-
-      const wordCount = countWords(segment)
-
-      expect(wordCount).toBe(5)
+      testCalculation('abc def ghj. Also other', 'en', 5)
     })
 
     it('Counts 0 words for undefined', () => {
-      const segment = undefined
-
-      const wordCount = countWords(segment as unknown as string)
-
-      expect(wordCount).toBe(0)
+      testCalculation(undefined as unknown as string, 'en', 0)
     })
 
     it('Counts 0 words for empty string', () => {
-      const segment = ''
-
-      const wordCount = countWords(segment)
-
-      expect(wordCount).toBe(0)
+      testCalculation('', 'en', 0)
     })
 
     it('Counts 0 words for non-text', () => {
-      const segment = '\n'
+      testCalculation('\n', 'en', 0)
+    })
 
-      const wordCount = countWords(segment)
+    it('Counts GMX factor languages', () => {
+      testCalculation('\u65E5\u672C\u8A9E', 'ja', 1)
+      testCalculation('\uD55C\uAD6D\uC5B4', 'ko', 1)
+      testCalculation('\u4F60\u597D\u5417', 'zh', 1)
+      testCalculation('\u0E20\u0E32\u0E29\u0E32\u0E44\u0E17\u0E22', 'th', 1)
+    })
 
-      expect(wordCount).toBe(0)
+    it('Does not counts logographic languages without GMX factor', () => {
+      // Laotian, Khmer, and Burmese do not have character count factors defined,
+      // so word counts cannot be determined (thus they are 0).
+      testCalculation('\u0E9E\u0EB2\u0EAA\u0EB2\u0EA5\u0EB2\u0EA7', 'lo', 0)
+      testCalculation('\u1797\u17B6\u179F\u17B6\u1781\u17D2\u1798\u17C2\u179A', 'km', 0)
+      testCalculation('\u1019\u103C\u1014\u103A\u1019\u102C\u1018\u102C\u101E\u102C', 'my', 0)
     })
   })
 })
