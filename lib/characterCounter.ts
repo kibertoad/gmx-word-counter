@@ -1,4 +1,4 @@
-import { isApostropheCp, isHyphenCp, isPunctuationCp } from './punctuationUtils'
+import { isApostropheCp, isHyphenCp, isPunctuationCp, isWhitespace } from './punctuationUtils'
 
 const UnicodeAlphanumeric = /^[\p{L}\p{N}]*$/u
 
@@ -50,7 +50,7 @@ export function countCharacters(originalText: string): Counts {
     const cc = Array.from(text.charAt(i)).length // This gives the count of characters represented by the code point.
 
     // GMX TotalCharacterCount excludes whitespace.
-    if (/\s/.test(String.fromCodePoint(cp))) {
+    if (isWhitespace(cp)) {
       whiteSpace++
       continue
     }
