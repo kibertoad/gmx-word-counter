@@ -12,7 +12,7 @@ const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
 
 const localeRegexMap: Record<string, RegExp> = {
   ta: /[\u0B80-\u0BFF]+/g,
-  te: /[\u0C00-\u0C7F\-]+/g,
+  te: /(?:[\u0C00-\u0C7F]|(?<=[\u0C00-\u0C7F])-(?=[\u0C00-\u0C7F]))+/g,
   kn: /[\u0C80-\u0CFF]+/g,
   ml: /[\u0D00-\u0D7F]+(?:[\u200C\u200D][\u0D00-\u0D7F]+)*/g,
 }

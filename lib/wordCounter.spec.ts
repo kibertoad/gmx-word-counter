@@ -77,8 +77,20 @@ describe('wordCounter', () => {
       )
     })
 
+    it('Counts dravidian languages (Telugu III)', () => {
+      testCalculation(
+        'ప్రతిపత్తిస్వత్వముల విషయమున - మానవులెల్లరును జన్మతః స్వతంత్రులును సమానులును నగుదురు. వారు వివేచన-అంతఃకరణ సంపన్నులగుటచే పరస్పరము భ్రాతృభావముతో వర్తింపవలయును.',
+        'te',
+        13,
+      )
+    })
+
     it('Counts dravidian languages (Tamil)', () => {
       testCalculation('உங்கள் வங்கியைத் தேர்ந்தெடுக்கவும்', 'ta', 3)
+    })
+
+    it('Counts text with surrogate pair', () => {
+      testCalculation('古池や蛙飛び込む𠮷の音', 'ja', 4)
     })
 
     it('Counts GMX factor languages', () => {
