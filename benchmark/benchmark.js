@@ -9,7 +9,7 @@ const benchmarkBuilder = new BenchmarkBuilder()
 const benchmark = benchmarkBuilder
     .benchmarkName('countCharacters')
     .warmupCycles(1000)
-    .benchmarkCycles(100)
+    .benchmarkCycles(500)
     .benchmarkCycleSamples(100)
     .functionUnderTest(testFn)
     .build()
