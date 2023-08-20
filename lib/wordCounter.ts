@@ -19,6 +19,13 @@ const localeRegexMap: Record<string, RegExp> = {
 
   kn: /[\u0C80-\u0CFF]+/g,
   ml: /[\u0D00-\u0D7F]+(?:[\u200C\u200D][\u0D00-\u0D7F]+)*/g,
+
+  es: /\b[A-Za-záéíóúüñÁÉÍÓÚÜÑ\-]+\b/g,
+  pt: /[\wáéíóúâêôãõçÁÉÍÓÚÂÊÔÃÕÇ]+/g,
+  fr: /\b[\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+(?:['’][\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+)?\b/g,
+  it: /[\w'àèéìòóù]+(?:(?:’[\w'àèéìòóù]+)?)/gi,
+  de: /\b[\wäöüÄÖÜß-]+\b/g,
+  en: /\b[a-zA-Z0-9]+(?:['’-][a-zA-Z0-9]+)*\b/g,
 }
 
 function countWordsLogographic(text: string, locale: LocaleId) {

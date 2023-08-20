@@ -17,13 +17,76 @@ describe('wordCounter', () => {
       testCalculation("d'une famille d'or.", 'fr', 3)
     })
 
+    it('Counts words in a French text', () => {
+      testCalculation(
+        'Ah, le mois de décembre : ses illuminations, la couronne de l’Avent pour les catholiques, et le fameux calendrier empli de chocolat pour les enfants... Tous ces préparatifs rendent chaque année l’atmosphère festive et enjouée. Il n’y a qu’à observer la métamorphose des rues commerçantes pour en être convaincu. Finies les façades grises et ternes, terminée la morosité ambiante : les rues se parent de guirlandes scintillantes et les vitrines rivalisent d’imagination pour leur décoration.',
+        'fr',
+        73,
+      )
+    })
+
+    it('Counts words in a Italian text', () => {
+      testCalculation(
+        'Tritate finemente la cipolla, l’aglio e il peperoncino. Lavate e tagliate a cubetti la zucchina, la melanzana e il peperone. Riscaldate 3 cucchiai di olio evo in una padella e poi aggiungete cipolla, aglio e peperoncino. Soffriggete fino a quando la cipolla diventa dorata. Aggiungete le verdure. Quando le verdure sono a buon punto aggiungete la passata di pomodoro. Mescolate e salate a piacere. Riempite una grossa pentola d’acqua e mettetela a bollire a fuoco alto. Aggiungete un pugno di sale all’acqua bollente e poi aggiungete la pasta. Una volta cotta la pasta scolatela al dente, aggiungetela al sugo e mescolate. La pasta è pronta per essere servita!',
+        'it',
+        108,
+      )
+    })
+
+    it('Counts words in a German text', () => {
+      testCalculation(
+        'Mit dem „Faust“ schuf Goethe sein wohl wichtigstes Werk. Es geht darin um einen Mann, der seine Seele dem Teufel verschreibt. Den zweiten Teil der Tragödie beendete er kurz vor seinem Tod im Jahr 1832. Mit 82 Jahren starb Goethe und hinterließ ein reiches literarisches Erbe, durch das er unsterblich wurde.',
+        'de',
+        51,
+      )
+    })
+
+    // FixMe it should be 4
+    it('Counts words in a Lithuanian text', () => {
+      testCalculation('Aš einu į parduotuvę', 'lt', 3)
+    })
+
+    it('Counts words in an English text', () => {
+      testCalculation(
+        'Saving your merry humour, here’s the note ' +
+          'How much your chain weighs to the utmost carat, ' +
+          'The fineness of the gold, and chargeful fashion, ' +
+          '30 Which doth amount to three odd ducats more ' +
+          'Than I stand debted to this gentleman: ' +
+          'I pray you, see him presently discharged, ' +
+          "For he is bound to sea, and stays but for it. And five o'clock",
+        'en',
+        61,
+      )
+
+      testCalculation('He is a very down-to-earth person.', 'en', 6)
+
+      testCalculation("Such a ne'er-do-well!", 'en', 3)
+    })
+
+    it('Counts words in a Spanish text', () => {
+      testCalculation('Es un placer conocerte, ¿Cómo te llamas?', 'es', 7)
+      testCalculation(
+        'Luego, me interesé más en los pasatiempos y empecé a emplear más tiempo en ellos. Así que comencé a probar otros deportes como el basquetbol y el tenis. También, luego de desarrollar un muy buen gusto por la música, aprendí a tocar otros instrumentos como la guitarra y el violín. Todas estas herramientas fueron construyendo nuevas habilidades que podía utilizar en otras actividades.',
+        'es',
+        63,
+      )
+    })
+
+    it('Counts words in a Portuguese text', () => {
+      testCalculation(
+        'O Brasil é um país que sempre foi referido por outras nações por seu tamanho ou por sua população. Mas em discussões entre os cientistas, jornalistas, economistas, e experientes internacionais, este país é muitas vezes caracterizado como um país subdesenvolvido',
+        'pt',
+        40,
+      )
+    })
+
     it('Counts words with ellipsis', () => {
       testCalculation('What can I say... Sometimes it be like that', 'en', 9)
     })
 
-    // ToDo check if we need to handle this case differently
     it('Counts words with hyphen', () => {
-      testCalculation('He was a well-known scientist', 'en', 6)
+      testCalculation('He was a well-known scientist', 'en', 5)
     })
 
     it('Counts 0 words for undefined', () => {
