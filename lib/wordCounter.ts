@@ -12,14 +12,18 @@ const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
 
 const localeRegexMap: Record<string, RegExp> = {
   ta: /[\u0B80-\u0BFF]+/g,
+
+  // dash is sometimes used in modern Telugu, but shouldn't be counted as a separate word,
+  // while two words combined by a hyphen should be considered one word
   te: /(?:[\u0C00-\u0C7F]|(?<=[\u0C00-\u0C7F])-(?=[\u0C00-\u0C7F]))+/g,
+
   kn: /[\u0C80-\u0CFF]+/g,
   ml: /[\u0D00-\u0D7F]+(?:[\u200C\u200D][\u0D00-\u0D7F]+)*/g,
 }
 
-function countWordsLogographic(segment: string, locale: LocaleId) {
+function countWordsLogographic(text: string, locale: LocaleId) {
   const factor = getCharacterCountFactor(locale)
-  const characters = countCharacters(segment)
+  const characters = countCharacters(text)
 
   return Math.round(characters.total / factor)
 }

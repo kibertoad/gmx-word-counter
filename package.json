@@ -13,7 +13,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "benchmark": "npm run build && node benchmark/benchmark.js",
+    "benchmark:count-characters": "npm run build && node benchmark/benchmark-count-characters.js",
+    "benchmark:count-words": "npm run build && node benchmark/benchmark-count-words.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint \"lib/**/*.ts\"",

@@ -21,6 +21,11 @@ describe('wordCounter', () => {
       testCalculation('What can I say... Sometimes it be like that', 'en', 9)
     })
 
+    // ToDo check if we need to handle this case differently
+    it('Counts words with hyphen', () => {
+      testCalculation('He was a well-known scientist', 'en', 6)
+    })
+
     it('Counts 0 words for undefined', () => {
       testCalculation(undefined as unknown as string, 'en', 0)
     })

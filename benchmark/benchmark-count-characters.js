@@ -6,7 +6,7 @@ const testFn = () => {
 }
 
 const benchmarkBuilder = new BenchmarkBuilder()
-const benchmark = benchmarkBuilder
+const benchmarkCountCharacters = benchmarkBuilder
     .benchmarkName('countCharacters')
     .warmupCycles(1000)
     .benchmarkCycles(500)
@@ -14,6 +14,6 @@ const benchmark = benchmarkBuilder
     .functionUnderTest(testFn)
     .build()
 
-const benchmarkResult = benchmark.execute()
+const benchmarkResult = benchmarkCountCharacters.execute()
 
 console.log(`Execution results: ${JSON.stringify(benchmarkResult, undefined, 2)}`)
