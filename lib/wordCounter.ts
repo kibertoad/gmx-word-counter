@@ -6,7 +6,8 @@ import {
 } from './logographicCounter'
 import { countCharacters } from './characterCounter'
 
-const NON_LOGOGRAPHIC_LANGUAGE_REGEX = /[\p{L}\p{M}]+(?:[-’][\p{L}\p{M}]+)*|\d+[:\d+]*/gu
+const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
+  /[\p{L}\p{M}]+(?:[-’](?=[\p{L}\p{M}])[\p{L}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu
 
 const localeRegexMap: Record<string, RegExp> = {
   ta: /[\u0B80-\u0BFF]+/g,
