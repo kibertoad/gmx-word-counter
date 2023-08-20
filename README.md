@@ -1,4 +1,9 @@
 # gmx-word-counter
+
+[![NPM Version](https://img.shields.io/npm/v/gmx-word-counter.svg)][https://npmjs.org/package/gmx-word-counter]
+[![Build Status](https://github.com/kibertoad/gmx-word-counter/workflows/ci/badge.svg)](https://github.com/kibertoad/gmx-word-counter/actions)
+[![Coverage Status](https://coveralls.io/repos/kibertoad/gmx-word-counter/badge.svg?branch=main)](https://coveralls.io/r/kibertoad/gmx-word-counter?branch=main)
+
 GMX-V 2.0 compliant word and character counting implementation for Node.js
 
 ## Basic usage
