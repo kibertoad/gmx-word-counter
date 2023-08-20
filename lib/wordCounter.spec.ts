@@ -41,9 +41,20 @@ describe('wordCounter', () => {
       )
     })
 
-    // FixMe it should be 4
     it('Counts words in a Lithuanian text', () => {
-      testCalculation('Aš einu į parduotuvę', 'lt', 3)
+      testCalculation('Aš einu į parduotuvę', 'lt', 4)
+    })
+
+    it('Counts words in an English text with unknown locale', () => {
+      testCalculation('He is actually pretty well-known around here.', '-', 7)
+    })
+
+    it('Counts words in a Latvian text', () => {
+      testCalculation(
+        'Noslēdzošajā spēles nogrieznī Latvijas izlase turpināja rādīt labu sniegumu, pie pirmajiem gūtajiem punktiem tika arī Jānis Timma, kuram šī bija pirmā pārbaudes spēle un atgriešanās 5:5 basketbolā pēc ilgākas pauzes. 84:72 - ar šādu rezultātu uzvarēja Latvijas izlase priekšpēdējā pārbaudes spēlē. one more: ī',
+        'lt',
+        43,
+      )
     })
 
     it('Counts words in an English text', () => {
