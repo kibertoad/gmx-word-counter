@@ -30,7 +30,7 @@ function countWordsLogographic(text: string, locale: LocaleId) {
   const factor = getCharacterCountFactor(locale)
   const characters = countCharacters(text)
 
-  return Math.round(characters.total / factor)
+  return Math.round(characters.characters / factor)
 }
 
 export function countWords(segment: string, locale: string) {

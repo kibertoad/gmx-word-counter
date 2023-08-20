@@ -1,4 +1,4 @@
-import { isApostropheCp, isHyphenCp, isPunctuationCp, isWhitespace } from './punctuationUtils'
+import { isApostropheCp, isHyphenCp, isPunctuationCp, isWhitespaceCp } from './punctuationUtils'
 
 const UnicodeAlphanumeric = /^[\p{L}\p{N}]*$/u
 
@@ -8,7 +8,7 @@ function isCpUnicodeAlphanumeric(codePoint: number): boolean {
 }
 
 export type Counts = {
-  total: number
+  characters: number
   whiteSpace: number
   punctuation: number
 }
@@ -17,14 +17,14 @@ export function countCharacters(originalText: string): Counts {
   if (!originalText) {
     return {
       whiteSpace: 0,
-      total: 0,
+      characters: 0,
       punctuation: 0,
     }
   }
 
   const text = originalText.normalize('NFC')
 
-  let total = 0
+  let totalCharacters = 0
   let whiteSpace = 0
   let punctuation = 0
 
@@ -37,7 +37,7 @@ export function countCharacters(originalText: string): Counts {
     }
 
     // GMX TotalCharacterCount excludes whitespace.
-    if (isWhitespace(cp)) {
+    if (isWhitespaceCp(cp)) {
       whiteSpace++
       continue
     }
@@ -56,11 +56,11 @@ export function countCharacters(originalText: string): Counts {
       continue
     }
 
-    total++
+    totalCharacters++
   }
 
   return {
-    total,
+    characters: totalCharacters,
     whiteSpace,
     punctuation,
   }
