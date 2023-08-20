@@ -2,7 +2,7 @@ import {
   getCharacterCountFactor,
   isLogographicScript,
   isUnsupportedLogographicScript,
-  LocaleId,
+  LogographicLanguagesSubtags,
 } from './logographicCounter'
 import { countCharacters } from './characterCounter'
 
@@ -26,30 +26,35 @@ const localeRegexMap: Record<string, RegExp> = {
   en: /\b[a-zA-Z0-9]+(?:['’-][a-zA-Z0-9]+)*\b/g,
 }
 
-function countWordsLogographic(text: string, locale: LocaleId) {
-  const factor = getCharacterCountFactor(locale)
+function countWordsLogographic(text: string, languageSubTag: LogographicLanguagesSubtags) {
+  const factor = getCharacterCountFactor(languageSubTag)
   const characters = countCharacters(text)
 
-  return Math.round(characters.total / factor)
+  return Math.round(characters.characters / factor)
 }
 
-export function countWords(segment: string, locale: string) {
-  if (!segment) {
+/**
+ *
+ * @param {string} text - Text to count words in
+ * @param {string} languageSubTag - BCP47 language subtag
+ */
+export function countWords(text: string, languageSubTag: string) {
+  if (!text) {
     return 0
   }
 
-  if (isLogographicScript(locale)) {
-    return countWordsLogographic(segment, locale as LocaleId)
+  if (isLogographicScript(languageSubTag)) {
+    return countWordsLogographic(text, languageSubTag as LogographicLanguagesSubtags)
   }
 
-  if (isUnsupportedLogographicScript(locale)) {
+  if (isUnsupportedLogographicScript(languageSubTag)) {
     return 0
   }
 
   // Let's see if we have locale-specific regex
-  const regex = localeRegexMap[locale]
+  const regex = localeRegexMap[languageSubTag]
 
-  const matches = regex ? segment.match(regex) : segment.match(NON_LOGOGRAPHIC_LANGUAGE_REGEX)
+  const matches = regex ? text.match(regex) : text.match(NON_LOGOGRAPHIC_LANGUAGE_REGEX)
 
   return matches?.length ?? 0
 }

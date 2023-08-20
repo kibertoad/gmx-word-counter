@@ -2,7 +2,7 @@
   "name": "gmx-word-counter",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "GMX-V compliant word counter",
+  "description": "GMX-V compliant word and character counter",
   "maintainers": [
     {
       "name": "Igor Savin",
@@ -47,6 +47,9 @@
     "gmx",
     "gmx-v",
     "word",
+    "character",
+    "letter",
+    "logographic",
     "count",
     "counting",
     "counter"

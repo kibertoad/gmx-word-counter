@@ -1,4 +1,4 @@
-import { isApostropheCp, isHyphenCp, isPunctuationCp, isWhitespace } from './punctuationUtils'
+import { isApostropheCp, isHyphenCp, isPunctuationCp, isWhitespaceCp } from './punctuationUtils'
 
 const UnicodeAlphanumeric = /^[\p{L}\p{N}]*$/u
 
@@ -8,28 +8,32 @@ function isCpUnicodeAlphanumeric(codePoint: number): boolean {
 }
 
 export type Counts = {
-  total: number
+  characters: number
   whiteSpace: number
   punctuation: number
 }
 
-export function countCharacters(originalText: string): Counts {
-  if (!originalText) {
+/**
+ *
+ * @param {string} text - text to count characters in
+ */
+export function countCharacters(text: string): Counts {
+  if (!text) {
     return {
       whiteSpace: 0,
-      total: 0,
+      characters: 0,
       punctuation: 0,
     }
   }
 
-  const text = originalText.normalize('NFC')
+  const normalizedText = text.normalize('NFC')
 
-  let total = 0
+  let totalCharacters = 0
   let whiteSpace = 0
   let punctuation = 0
 
-  for (var i = 0; i < text.length; i++) {
-    const cp = text.codePointAt(i)!
+  for (var i = 0; i < normalizedText.length; i++) {
+    const cp = normalizedText.codePointAt(i)!
 
     // Check for surrogate pair and increment `i` if found
     if (cp > 0xffff) {
@@ -37,15 +41,15 @@ export function countCharacters(originalText: string): Counts {
     }
 
     // GMX TotalCharacterCount excludes whitespace.
-    if (isWhitespace(cp)) {
+    if (isWhitespaceCp(cp)) {
       whiteSpace++
       continue
     }
 
     let isInWord = false
-    if (i > 0 && i < text.length - 1) {
-      const prev = text.codePointAt(i - 1)!
-      const next = text.codePointAt(i + 1)!
+    if (i > 0 && i < normalizedText.length - 1) {
+      const prev = normalizedText.codePointAt(i - 1)!
+      const next = normalizedText.codePointAt(i + 1)!
       isInWord = isCpUnicodeAlphanumeric(prev) && isCpUnicodeAlphanumeric(next)
     }
 
@@ -56,11 +60,11 @@ export function countCharacters(originalText: string): Counts {
       continue
     }
 
-    total++
+    totalCharacters++
   }
 
   return {
-    total,
+    characters: totalCharacters,
     whiteSpace,
     punctuation,
   }

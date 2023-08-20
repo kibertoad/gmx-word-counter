@@ -29,7 +29,7 @@ const whitespaces = [
 const whitespacesSet = new Set(whitespaces)
 
 // This is faster than /\s/.test(String.fromCodePoint(codePoint))
-export function isWhitespace(codePoint: number) {
+export function isWhitespaceCp(codePoint: number) {
   return whitespacesSet.has(codePoint)
 }
 
