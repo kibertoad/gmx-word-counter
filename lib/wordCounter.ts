@@ -6,9 +6,7 @@ import {
 } from './logographicCounter'
 import { countCharacters } from './characterCounter'
 
-// RegEx taken from https://github.com/regexhq/word-regex by Jon Schlinkert (MIT license), with CJK and Telugu removed (they are handled separately)
-const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
-  /[\u0392-\u03c9\u0400-\u04FF\u0027\u00E4\u00C4\u00E5\u00C5\u00F6\u00D6\u0531-\u0556\u0561-\u0586\u0559\u055A\u055B\w]+/g
+const NON_LOGOGRAPHIC_LANGUAGE_REGEX = /[\p{L}\p{M}]+(?:[-’][\p{L}\p{M}]+)*|\d+[:\d+]*/gu
 
 const localeRegexMap: Record<string, RegExp> = {
   ta: /[\u0B80-\u0BFF]+/g,
@@ -19,6 +17,13 @@ const localeRegexMap: Record<string, RegExp> = {
 
   kn: /[\u0C80-\u0CFF]+/g,
   ml: /[\u0D00-\u0D7F]+(?:[\u200C\u200D][\u0D00-\u0D7F]+)*/g,
+
+  es: /\b[A-Za-záéíóúüñÁÉÍÓÚÜÑ\-]+\b/g,
+  pt: /[\wáéíóúâêôãõçÁÉÍÓÚÂÊÔÃÕÇ]+/g,
+  fr: /\b[\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+(?:['’][\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+)?\b/g,
+  it: /[\w'àèéìòóù]+(?:(?:’[\w'àèéìòóù]+)?)/gi,
+  de: /\b[\wäöüÄÖÜß-]+\b/g,
+  en: /\b[a-zA-Z0-9]+(?:['’-][a-zA-Z0-9]+)*\b/g,
 }
 
 function countWordsLogographic(text: string, locale: LocaleId) {
