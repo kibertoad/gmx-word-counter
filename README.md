@@ -10,9 +10,14 @@ import { countCharacters, countWords } from 'gmx-word-counter'
 const wordCountEn = countWords(`It's five o'clock!`, 'en') // uses English-specific regex, returns 3
 const wordCountLt = countWords(`Aš einu į parduotuvę.`, '-') // uses generic regex, returns 4
 
-const characterCount = countCharacters(`d'une famille d'or.`) // returns { punctuation: 1, characters:: 16, whiteSpace: 2 } 
+const characterCount = countCharacters(`d'une famille d'or.`) // returns { punctuation: 1, characters: 16, whiteSpace: 2 } 
 ```
 
+## Language support
+
+Language for word counting is passed in a [BCP47 language subtag format](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry), e. g. `en` or `fr`.
+
+In case there is no specific word-splitting RegEx implemented for the language, or language subtag is not recognized by the library, generic word splitting RegEx will be used. Therefore you can pass any invalid subtag (e. g. `-`) in case you do not know the language of the text that you are parsing.
 
 ## Logographic language support
 
@@ -27,3 +32,5 @@ GMX-V 2.0 describes the following word count factors:
 `gmx-word-counter` follows the GMX-V directions for these languages.
 
 For logographic languages that GMX-V does not cover (Lao, Khmer and Myanmar), 0 is always returned as a word count.
+
+Note that correct counting for logographic languages requires passing correct language subtag as a parameter. `gmx-word-counter` will not automatically detect that language is logographic if invalid language subtag is passed as a parameter.

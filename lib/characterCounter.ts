@@ -13,8 +13,12 @@ export type Counts = {
   punctuation: number
 }
 
-export function countCharacters(originalText: string): Counts {
-  if (!originalText) {
+/**
+ *
+ * @param {string} text - text to count characters in
+ */
+export function countCharacters(text: string): Counts {
+  if (!text) {
     return {
       whiteSpace: 0,
       characters: 0,
@@ -22,14 +26,14 @@ export function countCharacters(originalText: string): Counts {
     }
   }
 
-  const text = originalText.normalize('NFC')
+  const normalizedText = text.normalize('NFC')
 
   let totalCharacters = 0
   let whiteSpace = 0
   let punctuation = 0
 
-  for (var i = 0; i < text.length; i++) {
-    const cp = text.codePointAt(i)!
+  for (var i = 0; i < normalizedText.length; i++) {
+    const cp = normalizedText.codePointAt(i)!
 
     // Check for surrogate pair and increment `i` if found
     if (cp > 0xffff) {
@@ -43,9 +47,9 @@ export function countCharacters(originalText: string): Counts {
     }
 
     let isInWord = false
-    if (i > 0 && i < text.length - 1) {
-      const prev = text.codePointAt(i - 1)!
-      const next = text.codePointAt(i + 1)!
+    if (i > 0 && i < normalizedText.length - 1) {
+      const prev = normalizedText.codePointAt(i - 1)!
+      const next = normalizedText.codePointAt(i + 1)!
       isInWord = isCpUnicodeAlphanumeric(prev) && isCpUnicodeAlphanumeric(next)
     }
 
