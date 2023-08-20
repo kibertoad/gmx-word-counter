@@ -85,6 +85,14 @@ describe('wordCounter', () => {
       )
     })
 
+    it('Counts words in an Armenian text', () => {
+      testCalculation(
+        'Հայաստանը վաղված պատմությամբ եւ մեծ մշակույթով երկիր է։ Այն գտնվում է Կովկասում եւ համարվում է աշխարհի ամենահին հանրապետություններից մեկի։ Հայաստանը հայոց ազգային եւ մշակույթական ժառանգության հետ հպարտանալով է։',
+        'hy',
+        28,
+      )
+    })
+
     it('Counts words in an English text with unknown locale', () => {
       testCalculation('He is actually pretty well-known around here.', '-', 7)
     })
