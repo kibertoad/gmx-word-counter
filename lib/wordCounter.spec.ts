@@ -31,6 +31,12 @@ describe('wordCounter', () => {
         'it',
         108,
       )
+
+      testCalculation(
+        "Nel 20° secolo, l'Italia ha visto una crescita esponenziale nell'industria della moda. Negli anni '80, solo 5 marchi dominavano il mercato, ma nel 2020, più di 50 marchi italiani sono conosciuti globalmente. Sulla via 24Ore, ogni sabato, si tiene un mercato dove puoi trovare vestiti d'epoca dagli anni '60 e '70. Il modello 3D di scarpe è diventato molto popolare quest'anno, e si stima che le vendite aumenteranno del 200% nel prossimo anno. Da un recente sondaggio, 9 su 10 italiani credono che la moda continuerà ad essere una delle principali esportazioni dell'Italia nel 21° secolo. Interessante notare, il 2° prodotto più esportato dopo la moda sono i vini italiani.",
+        'it',
+        110,
+      )
     })
 
     it('Counts words in a German text', () => {
@@ -38,6 +44,12 @@ describe('wordCounter', () => {
         'Mit dem „Faust“ schuf Goethe sein wohl wichtigstes Werk. Es geht darin um einen Mann, der seine Seele dem Teufel verschreibt. Den zweiten Teil der Tragödie beendete er kurz vor seinem Tod im Jahr 1832. Mit 82 Jahren starb Goethe und hinterließ ein reiches literarisches Erbe, durch das er unsterblich wurde.',
         'de',
         51,
+      )
+
+      testCalculation(
+        'Im 19. Jahrhundert erlebte Deutschland eine industrielle Revolution. In den 70er Jahren gab es nur 4 große Automobilunternehmen im Land, aber bis 2020 stieg diese Zahl auf über 30. Auf der 24Stunden-Straße findet jeden Sonntag ein Flohmarkt statt, wo man Vintage-Artikel aus den 60er und 80er Jahren finden kann. Das 5Sterne-Hotel in der Innenstadt verzeichnete im letzten Jahr einen Besucherrekord. Erstaunlicherweise zeigen Statistiken, dass 8 von 10 Deutschen mindestens einmal im Jahr verreisen. Das 3D-Drucken hat in den letzten Jahren ebenfalls an Popularität gewonnen, und man schätzt, dass die Branche in den nächsten 5 Jahren um 150% wachsen wird. Laut einer Umfrage glauben 9 von 10 Deutschen, dass Technologie der Schlüssel zur Zukunft des Landes ist.',
+        'de',
+        116,
       )
     })
 
@@ -139,6 +151,12 @@ describe('wordCounter', () => {
         'O Brasil é um país que sempre foi referido por outras nações por seu tamanho ou por sua população. Mas em discussões entre os cientistas, jornalistas, economistas, e experientes internacionais, este país é muitas vezes caracterizado como um país subdesenvolvido',
         'pt',
         40,
+      )
+
+      testCalculation(
+        'No 21º século, a integração de tecnologia e vida cotidiana se tornou inevitável. Na década de 90, apenas 10% das casas brasileiras tinham um computador, mas em 2020 esse número saltou para 78%. Na rua 24Horas, você encontrará uma loja que vende os modelos 3D mais recentes de televisões. No entanto, para muitos, a revolução 5G é o maior avanço. Nosso grupo fez uma pesquisa e 4 em cada 5 pessoas acreditam que a tecnologia mudará ainda mais nos próximos 10 anos. Por curiosidade, o 2º lugar no ranking de inovações mais esperadas é a condução autônoma de veículos.',
+        'pt',
+        99,
       )
     })
 
