@@ -5,8 +5,7 @@ GMX-V 2.0 compliant word counting implementation for Node.js
 
 ```ts
 
-import { countWords } from 'gmx-word-counter'
-import { countCharacters } from 'gmx-word-counter'
+import { countCharacters, countWords } from 'gmx-word-counter'
 
 const wordCountEn = countWords(`It's five o'clock!`, 'en') // uses English-specific regex, returns 3
 const wordCountLt = countWords(`Aš einu į parduotuvę.`, '-') // uses generic regex, returns 4
