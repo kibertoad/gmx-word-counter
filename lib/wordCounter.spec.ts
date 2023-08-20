@@ -45,6 +45,46 @@ describe('wordCounter', () => {
       testCalculation('Aš einu į parduotuvę', 'lt', 4)
     })
 
+    it('Counts words in a Danish text', () => {
+      testCalculation(
+        'Han er en stille, eftertænksom mand. Selvom han har meget erfaring, er han ikke stolt. Han tager ikke sig selv alt for højtideligt. Derfor elsker Maria sin morfar. Han er tilgængelig og bliver aldrig sur; tværtimod spreder han ro og god stemning. Maria syntes det er sjovt at kilde ham. Han griner så meget, at han er ved at falde ned af stolen. Det er så hyggeligt! Han er så sød! Han er et meget nostalgisk menneske. Han elsker at kigge på billeder fra gamle dage og lukke sig inde på sit kontor for at fordybe sig i Bibelen og andre lærerige bøger.',
+        'da',
+        103,
+      )
+    })
+
+    it('Counts words in a Polish text', () => {
+      testCalculation(
+        'To najpiękniejsza i jednocześnie najstarsza część Wrocławia, pozostałości pierwszej osady odkryte tu pochodzą z X wieku. Przez wieki podlegała władzy kościelnej, dzisiaj to nastrojowe miejsce, popularne wśród zakochanych, spacerowiczów i turystów. Od kilkunastu lat jest popularnym miejscem spotkań zakochanych. Tradycją stało się wieszanie na nim kłódek (kluczyki do nich wrzucane są do Odry), na znak trwałości uczucia łączącego pary. Most Tumski łączy Wyspę Piasek i Ostrów Tumski. Stalowa konstrukcja z 1889 r. stanęła w miejscu, gdzie od co najmniej XII wieku budowano mosty. Przy wejściu na most stoją figury św. Jadwigi i św. Jana Chrzciciela.',
+        'pl',
+        95,
+      )
+    })
+
+    it('Counts words in a Dutch text', () => {
+      testCalculation(
+        'Gisteren ging ik met Marcel naar de supermarkt. Wij hadden al een tijd samen ruzie. Toch moesten er boodschappen worden gedaan, dus besloten wij om toch maar gewoon wat inkopen te gaan doen. We kregen al meer ruzie toen we besloten naar welke supermarkt te gaan. Marcel wilde namelijk naar de supermarkt waar wasmiddel in de aanbieding was en ik wilde naar de supermarkt die het dichtst bij was.',
+        'nl',
+        69,
+      )
+    })
+
+    it('Counts words in a Swedish text', () => {
+      testCalculation(
+        'Svenskar älskar att fika! I Sverige har bakverken sina egna dagar då de firas. Det finns en dag för kanelbullen, för wienerbrödet och för den kanske populäraste kakan – kladdkakan! Kladdkakans dag firas den 7e november varje år. Det är en söt, kladdig och god chokladkaka som nästan alla tycker om. Prova gärna att baka en kladdkaka med detta recept',
+        'sw',
+        59,
+      )
+    })
+
+    it('Counts words in a Norwegian text', () => {
+      testCalculation(
+        'Alle jentene foretrekker å danse ballet, men til helgen kommer de til å opptre med hip hop. I tillegg til dette har jentene opptrådt med salsa og swing. Marte gruer seg litt til søndag, hun sliter nemlig med å huske alle dansetrinnene. Ingrid er også litt stresset, hun sliter nemlig med et vondt kne. Live og Marianne derimot føler at de kan koreografien ganske godt og de gleder seg til forestillingen.',
+        'no',
+        71,
+      )
+    })
+
     it('Counts words in an English text with unknown locale', () => {
       testCalculation('He is actually pretty well-known around here.', '-', 7)
     })
@@ -73,6 +113,8 @@ describe('wordCounter', () => {
       testCalculation('He is a very down-to-earth person.', 'en', 6)
 
       testCalculation("Such a ne'er-do-well!", 'en', 3)
+
+      testCalculation('I will visit you on the 7th!', 'en', 7)
     })
 
     it('Counts words in a Spanish text', () => {

@@ -2,7 +2,7 @@ const {BenchmarkBuilder} = require("photofinish");
 const {countWords} = require("../dist/lib/wordCounter");
 
 const testFn = () => {
-    countWords('ప్రతిపత్తిస్వత్వముల విషయమున - మానవులెల్లరును జన్మతః స్వతంత్రులును సమానులును నగుదురు. వారు వివేచన-అంతఃకరణ సంపన్నులగుటచే పరస్పరము భ్రాతృభావముతో వర్తింపవలయును.', 'te')
+    countWords('Svenskar älskar att fika! I Sverige har bakverken sina egna dagar då de firas. Det finns en dag för kanelbullen, för wienerbrödet och för den kanske populäraste kakan – kladdkakan! Kladdkakans dag firas den 7e november varje år. Det är en söt, kladdig och god chokladkaka som nästan alla tycker om. Prova gärna att baka en kladdkaka med detta recept', 'sw')
 }
 
 const benchmarkBuilder = new BenchmarkBuilder()
