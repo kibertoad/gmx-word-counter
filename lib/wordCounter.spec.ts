@@ -105,6 +105,40 @@ describe('wordCounter', () => {
       )
     })
 
+    it('Counts words in an Czech text', () => {
+      testCalculation(
+        'Jak říká encyklopedie, Jára Cimrman byl český génius, který se neproslavil. Byl to geniální vynálezce, spisovatel, autor divadelních her, hudební skladatel, básník, cestovatel, filozof, politik a sportovec. Bohužel, měl tu smůlu, že ho vždy někdo předběhl, a tak se Cimrman proslavil až po své smrti, kdy bylo jeho dílo objeveno. Po Cimrmanovi je v Praze pojmenované divadlo, má i svou rozhlednu v Nouzově a je to nejnižší rozhledna na světě, má své muzeum, které stojí pod rozhlednou Maják Járy Cimrmana v Příchovicích a ve městě Tanvald stojí sochá Járy Cimrmana.',
+        'cz',
+        90,
+      )
+    })
+
+    it('Counts words in an a Croatian text', () => {
+      testCalculation(
+        'Svako ima pravo na školovanje. Školovanje treba da bude besplatno bar u osnovnim i nižim školama. Osnovna nastava je obavezna. Tehnička i stručna nastava treba da bude opšte dostupna, a viša nastava treba da bude svima podjednako pristupačna na osnovu utvrdjenih kriterijuma.\n' +
+          'Školovanje treba da bude usmereno punom razvoju ljudske ličnosti i jačanju poštovanja ljudskih prava i osnovnih sloboda. Ono treba da unapredjuje razumevanje, trpeljivost i prijateljstvo medju svim narodima, rasnim i verskim grupacijama, kao i delatnost Ujedinjenih nacija za održavanje mira.\n' +
+          'Roditelji imaju prvenstveno pravo da biraju vrstu školovanja za svoju decu.',
+        'hr',
+        93,
+      )
+    })
+
+    it('Counts words in an a Greek text', () => {
+      testCalculation(
+        `οἱ οὖν πάντες πρόσθεν τῆς σκηνῆς καθίζουσιν. καὶ δή, ἐν μὲν ταῖς ἕδραις τοῦ Δικαιοπολέως ἀγαθαῖς καθίζουσιν, οἱ δὲ πάντες τὴν σκηνὴν θεῶνται. ἡ γὰρ τῆς κωμῳδίας ἀρχὴ δι' ὀλίγου ἐστίν. ἡ κωμῳδία ἐστὶν ὀνόματι Νεφέλαι. οἱ μὲν πάντες ἐν ταῖς ἕδραις μένουσιν, ὁ δὲ Δικαιόπολις περὶ τ' αὐτοῦ κακά αὖθις λέγει · "ἐγὼ νῦν," φησιν ὁ Δικαιόπολις, "τε πλούσιος καὶ λαμπρός εἰμι. ἀλλὰ δὴ, οἰκτρός εἰμι. οἱ γὰρ μὲν παῖδες καὶ ἡ γυνὴ οἰκοφθοροῦσιν, ἐγὼ νῦνδὲ πολὺ πολλοῖς ὀφείλω. ὁ γὰρ παῖς, Φίλιππος - οἴμοι! - πολὺν οἶνον αἰεὶ πίνει, ("εὖ γέ" φησιν Ἀλκιβιάδης) τε καὶ πολλάκις καθεύδει ("ἀμείνων γέ" φησιν Ἀλκιβιάδης)." καὶ ὴ καί, ἡ γυνή, Μυρρίνη, τήν τινα ἐπιβουλὴν ποιεῖ μετὰ τῶν Λακεδαιμονιῶν · καθ' ἑκάστην τὴν ἡμέραν τὸ ἄγγελμα δέχεται ἀπὸ τοῦ Βρασίδου, τοῦ τῶν Λακεδαιμονιῶν στρατηγοῦ. καθ' οὖν ἑκάστην τὴν ἡμέραν, δεῖ με παρέχειν τὰ χρήματα τῷ ἀγγέλῳ! καὶ δὴ κατὰ τὴν θυγατέρα, Μέλιτταν · ἡ μὲν τὰ ἐμοῦ χρήματα κλέπτει, ἡ δὲ εἰς τὸν Πειραιέα μετὰ τῶν φίλων ἔρχεται. τ' οὐν ὁ παῖς, καὶ ἡ γυνὴ καὶ ἡ θυγάτηρ οἰκοφθοροῦσιν. μάλιστά γε, ὁ βίος ἐστὶ χαλεπὸς καὶ οἰκτρός." καὶ αὖθις ὁ Δικαιόπολίς φησιν · "ἀλλ' ἴσως, ὦ Σώκρατα, δύνασαί μοι βοηθεῖν...."`,
+        'el',
+        191,
+      )
+    })
+
+    it('Counts words in an a Hungarian text', () => {
+      testCalculation(
+        `Minden személynek joga van a neveléshez. A nevelésnek, legalábbis az elemi és alapvető oktatást illetően, ingyenesnek kell lennie. Az elemi oktatás kötelező. A technikai és szakoktatást általánossá kell tenni; a felsőbb tanulmányokra való felvételnek mindenki előtt -érdeméhez képest- egyenlő feltételek mellett nyitva kell állnia. A nevelésnek az emberi személyiség teljes kibontakoztatására, valamint az emberi jogok és alapvető szabadságok tiszteletbentartásának megerősítésére kell irányulnia. A nevelésnek elő kell segítenie a nemzetek, valamint az összes faji és vallási csoportok közötti megértést, türelmet és barátságot, valamint az Egyesült Nemzetek által a béke fenntartásának érdekében kifejtett tevékenység kifejlődését. A szülőket elsőbbségi jog illeti meg a gyermekeiknek adandó nevelés megválasztásában.`,
+        'hu',
+        104,
+      )
+    })
+
     it('Counts words in an English text with unknown locale', () => {
       testCalculation('He is actually pretty well-known around here.', '-', 7)
     })
