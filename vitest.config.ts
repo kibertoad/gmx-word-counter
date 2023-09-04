@@ -8,7 +8,7 @@ export default defineConfig({
     reporters: ['verbose'],
     coverage: {
       include: ['lib/**/*.ts'],
-      reporter: ['lcov', "text", "html"],
+      reporter: ['lcov', 'text', 'html'],
       all: true,
       lines: 100,
       functions: 100,
