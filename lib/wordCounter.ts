@@ -10,6 +10,9 @@ const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
   /[\p{L}\p{M}]+(?:[-’](?=[\p{L}\p{M}])[\p{L}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu
 
 const localeRegexMap: Record<string, RegExp> = {
+  // persian
+  /* eslint-disable no-misleading-character-class */
+  fa: /[\p{Script=Arabic}\p{M}]+(?:[‌‍ـ]+(?=[\p{Script=Arabic}\p{M}])[\p{Script=Arabic}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu,
   ta: /[\u0B80-\u0BFF]+/g,
 
   // dash is sometimes used in modern Telugu, but shouldn't be counted as a separate word,

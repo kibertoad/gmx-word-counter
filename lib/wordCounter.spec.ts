@@ -105,7 +105,7 @@ describe('wordCounter', () => {
       )
     })
 
-    it('Counts words in an Czech text', () => {
+    it('Counts words in a Czech text', () => {
       testCalculation(
         'Jak říká encyklopedie, Jára Cimrman byl český génius, který se neproslavil. Byl to geniální vynálezce, spisovatel, autor divadelních her, hudební skladatel, básník, cestovatel, filozof, politik a sportovec. Bohužel, měl tu smůlu, že ho vždy někdo předběhl, a tak se Cimrman proslavil až po své smrti, kdy bylo jeho dílo objeveno. Po Cimrmanovi je v Praze pojmenované divadlo, má i svou rozhlednu v Nouzově a je to nejnižší rozhledna na světě, má své muzeum, které stojí pod rozhlednou Maják Járy Cimrmana v Příchovicích a ve městě Tanvald stojí sochá Járy Cimrmana.',
         'cz',
@@ -113,7 +113,7 @@ describe('wordCounter', () => {
       )
     })
 
-    it('Counts words in an a Croatian text', () => {
+    it('Counts words in a Croatian text', () => {
       testCalculation(
         'Svako ima pravo na školovanje. Školovanje treba da bude besplatno bar u osnovnim i nižim školama. Osnovna nastava je obavezna. Tehnička i stručna nastava treba da bude opšte dostupna, a viša nastava treba da bude svima podjednako pristupačna na osnovu utvrdjenih kriterijuma.\n' +
           'Školovanje treba da bude usmereno punom razvoju ljudske ličnosti i jačanju poštovanja ljudskih prava i osnovnih sloboda. Ono treba da unapredjuje razumevanje, trpeljivost i prijateljstvo medju svim narodima, rasnim i verskim grupacijama, kao i delatnost Ujedinjenih nacija za održavanje mira.\n' +
@@ -123,7 +123,7 @@ describe('wordCounter', () => {
       )
     })
 
-    it('Counts words in an a Greek text', () => {
+    it('Counts words in a Greek text', () => {
       testCalculation(
         `οἱ οὖν πάντες πρόσθεν τῆς σκηνῆς καθίζουσιν. καὶ δή, ἐν μὲν ταῖς ἕδραις τοῦ Δικαιοπολέως ἀγαθαῖς καθίζουσιν, οἱ δὲ πάντες τὴν σκηνὴν θεῶνται. ἡ γὰρ τῆς κωμῳδίας ἀρχὴ δι' ὀλίγου ἐστίν. ἡ κωμῳδία ἐστὶν ὀνόματι Νεφέλαι. οἱ μὲν πάντες ἐν ταῖς ἕδραις μένουσιν, ὁ δὲ Δικαιόπολις περὶ τ' αὐτοῦ κακά αὖθις λέγει · "ἐγὼ νῦν," φησιν ὁ Δικαιόπολις, "τε πλούσιος καὶ λαμπρός εἰμι. ἀλλὰ δὴ, οἰκτρός εἰμι. οἱ γὰρ μὲν παῖδες καὶ ἡ γυνὴ οἰκοφθοροῦσιν, ἐγὼ νῦνδὲ πολὺ πολλοῖς ὀφείλω. ὁ γὰρ παῖς, Φίλιππος - οἴμοι! - πολὺν οἶνον αἰεὶ πίνει, ("εὖ γέ" φησιν Ἀλκιβιάδης) τε καὶ πολλάκις καθεύδει ("ἀμείνων γέ" φησιν Ἀλκιβιάδης)." καὶ ὴ καί, ἡ γυνή, Μυρρίνη, τήν τινα ἐπιβουλὴν ποιεῖ μετὰ τῶν Λακεδαιμονιῶν · καθ' ἑκάστην τὴν ἡμέραν τὸ ἄγγελμα δέχεται ἀπὸ τοῦ Βρασίδου, τοῦ τῶν Λακεδαιμονιῶν στρατηγοῦ. καθ' οὖν ἑκάστην τὴν ἡμέραν, δεῖ με παρέχειν τὰ χρήματα τῷ ἀγγέλῳ! καὶ δὴ κατὰ τὴν θυγατέρα, Μέλιτταν · ἡ μὲν τὰ ἐμοῦ χρήματα κλέπτει, ἡ δὲ εἰς τὸν Πειραιέα μετὰ τῶν φίλων ἔρχεται. τ' οὐν ὁ παῖς, καὶ ἡ γυνὴ καὶ ἡ θυγάτηρ οἰκοφθοροῦσιν. μάλιστά γε, ὁ βίος ἐστὶ χαλεπὸς καὶ οἰκτρός." καὶ αὖθις ὁ Δικαιόπολίς φησιν · "ἀλλ' ἴσως, ὦ Σώκρατα, δύνασαί μοι βοηθεῖν...."`,
         'el',
@@ -131,7 +131,39 @@ describe('wordCounter', () => {
       )
     })
 
-    it('Counts words in an a Hungarian text', () => {
+    it('Counts words in Persian text', () => {
+      testCalculation(
+        `هر کس حق دارد که از آموزش و پرورش بهره‌مند شود. آموزش و پرورش لااقل تا حدودی که مربوط بتعلیمات ابتدائی و اساسی است باید مجانی باشد. آموزش ابتدائی اجباری است. آموزش حرفه‌ای باید با شرایط تساوی کامل بروی همه باز باشد تا همه بنا باستعداد خود بتوانند از آن بهره‌مند گردند.
+آموزش و پرورش باید طوری هدایت شود که شخصیت انسانی هر کس را بحد اکمل رشد آن برساند و احترام حقوق و آزادی‌های بشر را تقویت کند. آموزش و پرورش باید حسن تفاهم، گذشت و احترام عقاید مخالف و دوستی بین تمام ملل و جمعیتهای نژادی یا مذهبی و همچنین توسعه فعالیتهای ملل متحد را در راه حفظ صلح تسهیل نماید.
+پدر و مادر در انتخاب نوع آموزش و پرورش فرزندان خود نسبت بدیگران اولویت دارند.`,
+        'fa',
+        128,
+      )
+
+      testCalculation(
+        `در یک روز آفتابی، محمد با دوستانش به باغچه‌ای نزدیک خانه رفت. آن‌ها قصد داشتند تا چای بنوشند و از زیر سایهٔ درختان بزرگ استراحت کنند. هوا خنک و ملایم بود و آواز پرندگان در آسمان به گوش می‌رسید. همه‌ی آن‌ها از لحظات خوشی که در کنار یکدیگر داشتند لذت می‌بردند`,
+        'fa',
+        51,
+      )
+
+      testCalculation(
+        `در روزهای اخیر، شماری از کارشناسان معتقدند که بازار فناوری اطلاعات در ایران رشد چشمگیری داشته است. در سال ۱۴۰۰، تعداد کاربران اینترنت در کشور به بیش از ۵۰ میلیون نفر رسیده است. با وجود اینکه در دهه ۹۰ تنها ۲۰٪ مردم از اینترنت استفاده می‌کردند، اما اکنون این رقم به بیش از ۷۰٪ افزایش یافته است. موفقیت‌های این حوزه، بدون شک، نتیجه تلاش‌ها و سرمایه‌گذاری‌های بزرگی است که در طول این سال‌ها صورت گرفته است.`,
+        'fa',
+        76,
+      )
+    })
+
+    it('Counts words in Arabic text', () => {
+      testCalculation(
+        `... الطالب الذي يردرس اللغة العربية في الجامعة قال لي إنّه كان يقود إلى صفه الإمتحان في الساعة الثامنة صباحا، وثم ثلاثة كلاب جئت إلى الشارع أمام سيارتك. ومع أنّ الطالِب لم يضرب الكلاب فإنّه كان من اللازم أن يترك الشارع. بعد ذلك السيارة ضربت شجرة بجانب الشارع. وفوق هذا كله فإنّ رأس الطالب ضربَ وكسرَ الشباك. هو بخير الآن، ولكن بعد الكلام مع الشرطي كان من اللازم أن يتكلم مع دكتور في منطقة الجامعة.
+يشعر الناس في المدينة بالسعادة لأن الطالب بخير، ولكنهم يريدون حكومة المدينة أن تساعد في المستقبل. بالنسبة لهم، الكلاب يجب أن تبقى في بيوتها أو مع أصحابها. هكذا فحكومة المدينة ستتحدث عن حادث السيارة والكلاب بعد أسبوع.
+في بلدي يسأل الرجل امرأة أن تتزوجه عندما يحبها ويريد أنْ يحبها كل أيام حياته بقية. اذن تقول "نام" ماستعدّ لالعرس. يوفر أب العروس فلوس لالتكاليف الازم عادةً. يتم عقد النكاح قبل العرس. وترسل الأسرتان دعوات الى الاقارب والاصدقاء قبل العرس بايام كثيرةً وبسنة أحياناً. في يوم العرس، يجتمع كل الضيوف في الكنيسة وتمشي العروس إلى العريس ويتكلم رجل الدين ويقبل العروس والعريس وثم يصفران الى مكان العطلة وبعد ذلك يعيشان سعيداً كل ايام حياتين`,
+        'ar',
+        186,
+      )
+    })
+
+    it('Counts words in a Hungarian text', () => {
       testCalculation(
         `Minden személynek joga van a neveléshez. A nevelésnek, legalábbis az elemi és alapvető oktatást illetően, ingyenesnek kell lennie. Az elemi oktatás kötelező. A technikai és szakoktatást általánossá kell tenni; a felsőbb tanulmányokra való felvételnek mindenki előtt -érdeméhez képest- egyenlő feltételek mellett nyitva kell állnia. A nevelésnek az emberi személyiség teljes kibontakoztatására, valamint az emberi jogok és alapvető szabadságok tiszteletbentartásának megerősítésére kell irányulnia. A nevelésnek elő kell segítenie a nemzetek, valamint az összes faji és vallási csoportok közötti megértést, türelmet és barátságot, valamint az Egyesült Nemzetek által a béke fenntartásának érdekében kifejtett tevékenység kifejlődését. A szülőket elsőbbségi jog illeti meg a gyermekeiknek adandó nevelés megválasztásában.`,
         'hu',
