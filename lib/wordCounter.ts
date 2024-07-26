@@ -1,10 +1,10 @@
+import { countCharacters } from './characterCounter'
 import {
+  type LogographicLanguagesSubtags,
   getCharacterCountFactor,
   isLogographicScript,
   isUnsupportedLogographicScript,
-  LogographicLanguagesSubtags,
 } from './logographicCounter'
-import { countCharacters } from './characterCounter'
 
 const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
   /[\p{L}\p{M}]+(?:[-’](?=[\p{L}\p{M}])[\p{L}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu

@@ -15,9 +15,6 @@ updates:
         patterns:
           - '@types/node'
           - '@typescript-eslint/*'
-          - 'eslint'
-          - 'eslint-*'
-          - 'prettier'
       vite:
         patterns:
           - 'vitest'
