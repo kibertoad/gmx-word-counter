@@ -36,5 +36,7 @@ export function isLogographicScript(locale: string) {
 }
 
 export function isUnsupportedLogographicScript(locale: string) {
-  return UNSUPPORTED_LOGOGRAPHIC_SCRIPT_SET.has(locale as (typeof UNSUPPORTED_LOGOGRAPHIC_SCRIPTS)[number])
+  return UNSUPPORTED_LOGOGRAPHIC_SCRIPT_SET.has(
+    locale as (typeof UNSUPPORTED_LOGOGRAPHIC_SCRIPTS)[number],
+  )
 }

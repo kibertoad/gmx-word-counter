@@ -1,4 +1,4 @@
-import { describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { isApostrophe, isHyphen, isPunctuation } from './punctuationUtils'
 
 /* eslint-disable no-irregular-whitespace */

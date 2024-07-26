@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest'
 import { countWords } from './wordCounter'
-import { expect } from 'vitest'
 
 function testCalculation(text: string, locale: string, expectedWords: number) {
   const characterCount = countWords(text, locale)

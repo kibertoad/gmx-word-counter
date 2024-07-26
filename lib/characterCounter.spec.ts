@@ -1,5 +1,5 @@
-import { describe, expect } from 'vitest'
-import { Counts, countCharacters } from './characterCounter'
+import { describe, expect, it } from 'vitest'
+import { type Counts, countCharacters } from './characterCounter'
 
 function testCalculation(text: string, expectedCounts: Counts) {
   const characterCount = countCharacters(text)
@@ -83,14 +83,19 @@ describe('characterCounter', () => {
       whiteSpace: 0,
     })
 
-    testCalculation('Elle a \u00E9t\u00E9 la ' + "premi\u00E8re Fran\u00E7aise d'une famille d'\u00E9migr\u00E9s.", {
-      punctuation: 1,
-      characters: 48,
-      whiteSpace: 8,
-    })
+    testCalculation(
+      'Elle a \u00E9t\u00E9 la ' +
+        "premi\u00E8re Fran\u00E7aise d'une famille d'\u00E9migr\u00E9s.",
+      {
+        punctuation: 1,
+        characters: 48,
+        whiteSpace: 8,
+      },
+    )
 
     testCalculation(
-      'Elle a \u00E9t\u00E9 la ' + 'premi\u00E8re Fran\u00E7aise d\u2019une famille d\u2019\u00E9migr\u00E9s.',
+      'Elle a \u00E9t\u00E9 la ' +
+        'premi\u00E8re Fran\u00E7aise d\u2019une famille d\u2019\u00E9migr\u00E9s.',
       {
         punctuation: 1,
         characters: 48,
