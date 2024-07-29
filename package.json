@@ -25,7 +25,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@kibertoad/biome-config": "^1.2.1",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^2.0.4",
     "photofinish": "^1.8.0",
     "typescript": "^5.5.4",
