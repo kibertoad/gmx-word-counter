@@ -14,7 +14,6 @@ updates:
       common:
         patterns:
           - '@types/node'
-          - '@typescript-eslint/*'
       vite:
         patterns:
           - 'vitest'
