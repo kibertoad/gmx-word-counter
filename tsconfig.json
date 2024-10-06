@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "commonjs",
+    "moduleResolution": "node",
     "target": "ES2022",
     "lib": ["ES2022", "dom"],
     "sourceMap": true,
@@ -10,7 +11,6 @@
     "types": ["node", "vitest/globals"],
     "skipLibCheck": true,
     "strict": true,
-    "moduleResolution": "node",
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
