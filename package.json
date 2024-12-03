@@ -29,7 +29,7 @@
     "@vitest/coverage-v8": "^2.1.2",
     "photofinish": "^1.8.0",
     "typescript": "^5.6.2",
-    "vitest": "2.1.7"
+    "vitest": "2.1.8"
   },
   "engines": {
     "node": ">=16"
