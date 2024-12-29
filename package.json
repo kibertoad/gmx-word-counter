@@ -2,7 +2,7 @@
   "name": "gmx-word-counter",
   "version": "1.1.0",
   "license": "MIT",
-  "description": "GMX-V compliant word and character counter",
+  "description": "Fast, GMX-V compliant word and character counter. Can count both logographic and non-logographic languages correctly. Also supports generic counting for cases when language is unknown.",
   "maintainers": [
     {
       "name": "Igor Savin",
@@ -23,12 +23,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
+    "@biomejs/biome": "^1.9.4",
     "@kibertoad/biome-config": "^1.2.1",
-    "@types/node": "^22.7.4",
-    "@vitest/coverage-v8": "^2.1.2",
+    "@types/node": "^22.10.2",
+    "@vitest/coverage-v8": "^2.1.8",
     "photofinish": "^1.8.0",
-    "typescript": "^5.6.2",
+    "typescript": "^5.7.2",
     "vitest": "2.1.8"
   },
   "engines": {
@@ -46,6 +46,8 @@
     "letter",
     "logographic",
     "count",
+    "word count",
+    "word counting",
     "counting",
     "counter"
   ],
