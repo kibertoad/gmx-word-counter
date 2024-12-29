@@ -17,8 +17,8 @@
     "benchmark:count-words": "npm run build && node benchmark/benchmark-count-words.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "lint": "biome check index.ts lib biome.json",
-    "lint:fix": "biome check --write index.ts lib biome.json",
+    "lint": "biome check && tsc --noEmit",
+    "lint:fix": "biome check --write",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {},
@@ -52,9 +52,5 @@
     "counter"
   ],
   "homepage": "https://github.com/kibertoad/gmx-word-counter",
-  "files": [
-    "README.md",
-    "LICENSE",
-    "dist/*"
-  ]
+  "files": ["README.md", "LICENSE", "dist/*"]
 }
