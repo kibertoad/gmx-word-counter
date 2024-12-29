@@ -7,13 +7,16 @@ export default defineConfig({
     environment: 'node',
     reporters: ['verbose'],
     coverage: {
+      provider: 'v8',
       include: ['lib/**/*.ts'],
       reporter: ['lcov', 'text', 'html'],
       all: true,
-      lines: 100,
-      functions: 100,
-      branches: 100,
-      statements: 100,
+      thresholds: {
+        lines: 100,
+        functions: 100,
+        branches: 100,
+        statements: 100,
+      }
     },
   },
 })
