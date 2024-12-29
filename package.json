@@ -1,6 +1,6 @@
 {
   "name": "gmx-word-counter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "description": "Fast, GMX-V compliant word and character counter. Can count both logographic and non-logographic languages correctly. Also supports generic counting for cases when language is unknown.",
   "maintainers": [
