@@ -104,4 +104,5 @@ dist
 .tern-port
 .idea
 package-lock.json
+pnpm-lock.yaml
 dist

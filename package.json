@@ -13,13 +13,13 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "benchmark:count-characters": "npm run build && node benchmark/benchmark-count-characters.js",
-    "benchmark:count-words": "npm run build && node benchmark/benchmark-count-words.js",
+    "benchmark:count-characters": "pnpm build && node benchmark/benchmark-count-characters.js",
+    "benchmark:count-words": "pnpm build && node benchmark/benchmark-count-words.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "biome check && tsc --noEmit",
     "lint:fix": "biome check --write",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {},
   "devDependencies": {
@@ -34,6 +34,7 @@
   "engines": {
     "node": ">=16"
   },
+  "packageManager": "pnpm@11.1.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/kibertoad/gmx-word-counter.git"
@@ -52,5 +53,9 @@
     "counter"
   ],
   "homepage": "https://github.com/kibertoad/gmx-word-counter",
-  "files": ["README.md", "LICENSE", "dist/*"]
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist/*"
+  ]
 }
