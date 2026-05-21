@@ -9,10 +9,8 @@
       "performance": {
         "noBarrelFile": "off"
       },
-      "style": {
-        "noVar": "off"
-      },
       "suspicious": {
+        "noVar": "off",
         "noDoubleEquals": "off",
         "noMisleadingCharacterClass": "off"
       }

@@ -1,9 +1,9 @@
 import { countCharacters } from './characterCounter'
 import {
-  type LogographicLanguagesSubtags,
   getCharacterCountFactor,
   isLogographicScript,
   isUnsupportedLogographicScript,
+  type LogographicLanguagesSubtags,
 } from './logographicCounter'
 
 const NON_LOGOGRAPHIC_LANGUAGE_REGEX =
@@ -22,7 +22,7 @@ const localeRegexMap: Record<string, RegExp> = {
   kn: /[\u0C80-\u0CFF]+/g,
   ml: /[\u0D00-\u0D7F]+(?:[\u200C\u200D][\u0D00-\u0D7F]+)*/g,
 
-  es: /\b[A-Za-záéíóúüñÁÉÍÓÚÜÑ\-]+\b/g,
+  es: /\b[A-Za-záéíóúüñÁÉÍÓÚÜÑ-]+\b/g,
   pt: /[\wáéíóúâêôãõçÁÉÍÓÚÂÊÔÃÕÇ]+/g,
   fr: /\b[\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+(?:['’][\wàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]+)?\b/g,
   it: /[\w'àèéìòóù]+(?:(?:’[\w'àèéìòóù]+)?)/gi,
