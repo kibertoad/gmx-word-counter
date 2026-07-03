@@ -175,6 +175,11 @@ describe('wordCounter', () => {
       testCalculation('He is actually pretty well-known around here.', '-', 7)
     })
 
+    it('Falls back to generic counting for an empty language subtag', () => {
+      // An empty tag is neither logographic nor mapped, so the generic regex runs.
+      testCalculation('He is actually pretty well-known around here.', '', 7)
+    })
+
     it('Counts words in a Latvian text', () => {
       testCalculation(
         'Noslēdzošajā spēles nogrieznī Latvijas izlase turpināja rādīt labu sniegumu, pie pirmajiem gūtajiem punktiem tika arī Jānis Timma, kuram šī bija pirmā pārbaudes spēle un atgriešanās 5:5 basketbolā pēc ilgākas pauzes. 84:72 - ar šādu rezultātu uzvarēja Latvijas izlase priekšpēdējā pārbaudes spēlē. one more: ī',
@@ -319,6 +324,71 @@ describe('wordCounter', () => {
       testCalculation('\u0E9E\u0EB2\u0EAA\u0EB2\u0EA5\u0EB2\u0EA7', 'lo', 0)
       testCalculation('\u1797\u17B6\u179F\u17B6\u1781\u17D2\u1798\u17C2\u179A', 'km', 0)
       testCalculation('\u1019\u103C\u1014\u103A\u1019\u102C\u1018\u102C\u101E\u102C', 'my', 0)
+    })
+
+    it('Does not count Tibetan-script languages without GMX factor', () => {
+      // Tibetan and Dzongkha are written without inter-word spaces: syllables are
+      // delimited by the tsheg (U+0F0B), never by spaces, and GMX-V defines no
+      // factor for them (ICU also ships no Tibetan word dictionary). Because a
+      // reliable word count cannot be produced, 0 is returned rather than letting
+      // the generic regex miscount every tsheg-delimited syllable as a word.
+      // 'bkra shis bde legs' (a Tibetan greeting) is a single expression, and the
+      // syllable-splitting fallback would otherwise report 4.
+      testCalculation(
+        '\u0F56\u0F40\u0FB2\u0F0B\u0F64\u0F72\u0F66\u0F0B\u0F56\u0F51\u0F7A\u0F0B\u0F63\u0F7A\u0F42\u0F66',
+        'bo',
+        0,
+      )
+      // Dzongkha uses the Tibetan script as well.
+      testCalculation(
+        '\u0F62\u0FAB\u0F7C\u0F44\u0F0B\u0F41\u0F0B\u0F51\u0F42\u0F60\u0F0B\u0F58\u0F7C',
+        'dz',
+        0,
+      )
+      // Full BCP47 tags reduce to the primary subtag, so 'bo-CN' behaves as 'bo'.
+      testCalculation('\u0F56\u0F40\u0FB2\u0F0B\u0F64\u0F72\u0F66', 'bo-CN', 0)
+    })
+
+    it('Counts words in an Urdu text', () => {
+      // Urdu uses the Arabic script and joins letter runs across the zero-width
+      // non-joiner (U+200C). Each ZWNJ-joined run must stay a single word: the
+      // generic \p{L} regex would split them and overcount.
+      testCalculation(
+        '\u0645\u06CC\u06BA \u067E\u0627\u06A9\u0633\u062A\u0627\u0646\u200C\u0633\u06D2 \u06C1\u0648\u06BA',
+        'ur',
+        3,
+      )
+      testCalculation(
+        '\u06C1\u0631 \u0627\u0646\u0633\u0627\u0646 \u0622\u0632\u0627\u062F \u067E\u06CC\u062F\u0627 \u06C1\u0648\u062A\u0627 \u06C1\u06D2\u06D4',
+        'ur',
+        6,
+      )
+    })
+
+    it('Counts words in other Arabic-script languages', () => {
+      // Pashto, Sindhi, Central Kurdish (Sorani) and Uyghur route through the same
+      // Arabic-script regex as Persian and Urdu, so a ZWNJ-joined word stays one
+      // token in each of them.
+      testCalculation(
+        '\u062F \u067E\u069A\u062A\u0648\u200C\u0627\u0646\u0648 \u0698\u0628\u0647',
+        'ps',
+        3,
+      )
+      testCalculation('\u0633\u0646\u068C\u064A \u0680\u0627\u0634\u0627', 'sd', 2)
+      testCalculation('\u0632\u0645\u0627\u0646\u06CC \u06A9\u0648\u0631\u062F\u06CC', 'ckb', 2)
+      testCalculation('\u0626\u06C7\u064A\u063A\u06C7\u0631 \u062A\u0649\u0644\u0649', 'ug', 2)
+    })
+
+    it('Counts ZWNJ-joined Arabic-script words as a single token', () => {
+      // A bare word split by a ZWNJ is one word, not two, across the whole family.
+      testCalculation('\u0645\u06CC\u200C\u0631\u0648\u0645', 'fa', 1)
+      testCalculation('\u0645\u06CC\u200C\u0631\u0648\u0645', 'ur', 1)
+      // Digits inside otherwise Arabic-script text are still counted.
+      testCalculation(
+        '\u0645\u0646 \u06F5 \u06AF\u0631\u0628\u0647 \u062F\u0627\u0631\u0645',
+        'fa',
+        4,
+      )
     })
 
     it('Counts standalone accented French words', () => {
