@@ -22,9 +22,8 @@
     "lint:fix": "biome check --write",
     "prepublishOnly": "pnpm build"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@biomejs/biome": "^2.0.4",
+    "@biomejs/biome": "^2.5.2",
     "@kibertoad/biome-config": "^2.0.0",
     "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^4.0.1",

@@ -19,7 +19,7 @@ const characterCount = countCharacters(`d'une famille d'or.`) // returns { punct
 
 ## Language support
 
-Language for word counting is passed in a [BCP47 language subtag format](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry), e. g. `en` or `fr`.
+Language for word counting is passed in a [BCP47 language subtag format](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry), e. g. `en` or `fr`. Full BCP47 tags (e. g. `zh-CN` or `en-US`) and uppercase variants are reduced to their lowercase primary language subtag automatically.
 
 In case there is no specific word-splitting RegEx implemented for the language, or language subtag is not recognized by the library, generic word splitting RegEx will be used. Therefore you can pass any invalid subtag (e. g. `-`) in case you do not know the language of the text that you are parsing.
 

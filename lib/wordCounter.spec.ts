@@ -320,5 +320,69 @@ describe('wordCounter', () => {
       testCalculation('\u1797\u17B6\u179F\u17B6\u1781\u17D2\u1798\u17C2\u179A', 'km', 0)
       testCalculation('\u1019\u103C\u1014\u103A\u1019\u102C\u1018\u102C\u101E\u102C', 'my', 0)
     })
+
+    it('Counts standalone accented French words', () => {
+      testCalculation('Il va \u00E0 Paris', 'fr', 4)
+      testCalculation('Il n\u2019y a qu\u2019\u00E0 observer', 'fr', 5)
+    })
+
+    it('Counts French words with \u0153 and \u00E6 ligatures', () => {
+      testCalculation('un c\u0153ur et une \u00E2me', 'fr', 5)
+      testCalculation('les \u0153uvres et les n\u00E6vus', 'fr', 5)
+    })
+
+    it('Counts standalone crase in Portuguese', () => {
+      testCalculation('Vou \u00E0 praia', 'pt', 3)
+    })
+
+    it('Counts numbers in Spanish text', () => {
+      testCalculation('Tengo 5 gatos y 3 euros', 'es', 6)
+    })
+
+    it('Keeps decimal and grouped numbers as a single Spanish word', () => {
+      testCalculation('Cuesta 3,14 euros', 'es', 3)
+      testCalculation('Gane 1.000 euros', 'es', 3)
+    })
+
+    it('Counts standalone accented words in Spanish and German', () => {
+      // words made entirely of non-ASCII letters were dropped by the old \b anchors
+      testCalculation('la letra ñ', 'es', 3)
+      testCalculation('das Wort ö', 'de', 3)
+      // hyphenated compounds stay one word, lone hyphens are not counted
+      testCalculation('correo-e', 'es', 1)
+      testCalculation('E-Mail und - Post', 'de', 3)
+    })
+
+    it('Counts words with ASCII apostrophes in unknown locale', () => {
+      testCalculation("don't stop", '-', 2)
+      testCalculation('don\u2019t stop', '-', 2)
+    })
+
+    it('Counts numbers in Dravidian language texts', () => {
+      testCalculation('\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD 123', 'ta', 2)
+      testCalculation('\u0C2E\u0C40 5 \u0C2C\u0C4D\u0C2F\u0C3E\u0C02\u0C15\u0C41', 'te', 3)
+      testCalculation('\u0CA8\u0CBF\u0CAE\u0CCD\u0CAE 42', 'kn', 2)
+      testCalculation('\u0D28\u0D3F\u0D19\u0D4D\u0D19\u0D33\u0D41\u0D1F\u0D46 3.14', 'ml', 2)
+    })
+
+    it('Reduces full BCP47 tags to the primary language subtag', () => {
+      testCalculation('\u4F60\u597D\u5417', 'zh-CN', 1)
+      testCalculation('\u65E5\u672C\u8A9E', 'ja-JP', 1)
+      testCalculation("It's five o'clock!", 'en-US', 3)
+      testCalculation("It's five o'clock!", 'EN', 3)
+      testCalculation('\u0E9E\u0EB2\u0EAA\u0EB2\u0EA5\u0EB2\u0EA7', 'lo-LA', 0)
+    })
+
+    it('Does not count fullwidth punctuation into logographic word counts', () => {
+      testCalculation('\u4F60\u597D\uFF01', 'zh', 1)
+    })
+
+    it('Word-splits romanized text tagged with a Latin script subtag', () => {
+      // pinyin/romaji must be word-split, not divided as a logographic script
+      testCalculation('Beijing shi shou du', 'zh-Latn', 4)
+      testCalculation('Tokyo wa ii', 'ja-Latn', 3)
+      // native script subtags still route through logographic counting
+      testCalculation('\u4F60\u597D\u5417', 'zh-Hant', 1)
+    })
   })
 })
