@@ -50,13 +50,12 @@ export function countCharacters(text: string): Counts {
   }
 
   const normalizedText = text.normalize('NFC')
-  const length = normalizedText.length
 
   let totalCharacters = 0
   let whiteSpace = 0
   let punctuation = 0
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < normalizedText.length; i++) {
     const cp = normalizedText.codePointAt(i)!
 
     // Check for surrogate pair and increment `i` if found

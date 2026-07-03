@@ -28,7 +28,9 @@ const whitespaces = [
 
 const whitespacesSet = new Set(whitespaces)
 
-// This is faster than /\s/.test(String.fromCodePoint(codePoint))
+// This is faster than /\s/.test(String.fromCodePoint(codePoint)).
+// The fast path handles the sub-U+0085 whitespace codepoints (tab..CR and
+// space) inline; keep its bounds in sync with the low entries of `whitespaces`.
 export function isWhitespaceCp(codePoint: number) {
   if (codePoint < 0x0085) {
     return codePoint === 0x0020 || (codePoint >= 0x0009 && codePoint <= 0x000d)
@@ -36,37 +38,16 @@ export function isWhitespaceCp(codePoint: number) {
   return whitespacesSet.has(codePoint)
 }
 
-export function isApostrophe(symbol: string) {
-  return symbol === "'" || symbol == '\u2019'
-}
+// The direct codepoint checks below are the single source of truth. The public
+// string helper delegates to them so each set is defined in exactly one place.
 
 export function isApostropheCp(codepoint: number) {
   return codepoint === 0x0027 || codepoint === 0x2019
 }
 
-export function isHyphen(symbol: string) {
-  return symbol == '\u002D' || symbol == '\u2010' || symbol == '\u058A' || symbol == '\u30A0'
-}
-
 export function isHyphenCp(codepoint: number) {
   return (
     codepoint === 0x002d || codepoint === 0x2010 || codepoint === 0x058a || codepoint === 0x30a0
-  )
-}
-
-export function isPunctuation(symbol: string) {
-  if (symbol.length === 0) {
-    return false
-  }
-
-  return (
-    (symbol >= '\u0021' && symbol <= '\u002F') ||
-    (symbol >= '\u003A' && symbol <= '\u0040') ||
-    (symbol >= '\u005B' && symbol <= '\u0060') ||
-    (symbol >= '\u007B' && symbol <= '\u007E') ||
-    (symbol >= '\u2000' && symbol <= '\u206F') ||
-    (symbol >= '\u3000' && symbol <= '\u303F') ||
-    '\u00F7\u00D7\u00A1\u00BF\u0589\u05C3\u05BE\u05C0\u061B'.indexOf(symbol) != -1
   )
 }
 
@@ -88,4 +69,12 @@ export function isPunctuationCp(codepoint: number) {
     codepoint === 0x05c0 ||
     codepoint === 0x061b
   )
+}
+
+export function isPunctuation(symbol: string) {
+  if (symbol.length === 0) {
+    return false
+  }
+
+  return isPunctuationCp(symbol.codePointAt(0)!)
 }

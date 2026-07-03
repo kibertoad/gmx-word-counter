@@ -1,41 +1,106 @@
 import { describe, expect, it } from 'vitest'
-import { isApostrophe, isHyphen, isPunctuation } from './punctuationUtils'
+import {
+  isApostropheCp,
+  isHyphenCp,
+  isPunctuation,
+  isPunctuationCp,
+  isWhitespaceCp,
+} from './punctuationUtils'
 
 /* eslint-disable no-irregular-whitespace */
 
+const cp = (symbol: string) => symbol.codePointAt(0)!
+
 describe('punctuationUtils', () => {
-  describe('isApostrophe', () => {
-    it('returns true for an apostrophe', () => {
-      expect(isApostrophe(`'`)).toBe(true)
-      expect(isApostrophe(`’`)).toBe(true)
+  describe('isWhitespaceCp', () => {
+    it('returns true for whitespace on the ASCII fast path', () => {
+      expect(isWhitespaceCp(cp(' '))).toBe(true) // 0x0020
+      expect(isWhitespaceCp(cp('\t'))).toBe(true) // 0x0009
+      expect(isWhitespaceCp(cp('\n'))).toBe(true) // 0x000a
+      expect(isWhitespaceCp(0x000b)).toBe(true) // LINE TABULATION
+      expect(isWhitespaceCp(0x000c)).toBe(true) // FORM FEED
+      expect(isWhitespaceCp(cp('\r'))).toBe(true) // 0x000d
     })
 
-    it('returns false for not an apostrophe', () => {
-      expect(isApostrophe(``)).toBe(false)
-      expect(isApostrophe(`"`)).toBe(false)
-      expect(isApostrophe(` `)).toBe(false)
-      expect(isApostrophe(`a`)).toBe(false)
-      expect(isApostrophe(`0`)).toBe(false)
+    it('returns true for whitespace resolved via the set', () => {
+      expect(isWhitespaceCp(0x0085)).toBe(true) // NEXT LINE
+      expect(isWhitespaceCp(0x00a0)).toBe(true) // NO-BREAK SPACE
+      expect(isWhitespaceCp(0x2003)).toBe(true) // EM SPACE
+      expect(isWhitespaceCp(0x3000)).toBe(true) // IDEOGRAPHIC SPACE
+    })
+
+    it('returns false for non-whitespace', () => {
+      expect(isWhitespaceCp(cp('a'))).toBe(false)
+      expect(isWhitespaceCp(cp('0'))).toBe(false)
+      expect(isWhitespaceCp(cp('.'))).toBe(false)
+      expect(isWhitespaceCp(0x0008)).toBe(false) // just below the fast-path range
+      expect(isWhitespaceCp(0x000e)).toBe(false) // just above the fast-path range
+      expect(isWhitespaceCp(0x0084)).toBe(false) // just below NEL
     })
   })
 
-  describe('isHyphen', () => {
+  describe('isApostropheCp', () => {
+    it('returns true for an apostrophe', () => {
+      expect(isApostropheCp(cp(`'`))).toBe(true) // 0x0027
+      expect(isApostropheCp(cp('’'))).toBe(true) // 0x2019
+    })
+
+    it('returns false for not an apostrophe', () => {
+      expect(isApostropheCp(cp('"'))).toBe(false)
+      expect(isApostropheCp(cp(' '))).toBe(false)
+      expect(isApostropheCp(cp('a'))).toBe(false)
+      expect(isApostropheCp(cp('0'))).toBe(false)
+    })
+  })
+
+  describe('isHyphenCp', () => {
     it('returns true for a hyphen', () => {
-      // \u2010
-      expect(isHyphen(`‐`)).toBe(true)
-      // \u002D
-      expect(isHyphen(`-`)).toBe(true)
-      expect(isHyphen(`֊`)).toBe(true)
-      expect(isHyphen(`゠`)).toBe(true)
+      expect(isHyphenCp(cp('-'))).toBe(true) // 0x002d
+      expect(isHyphenCp(cp('‐'))).toBe(true) // 0x2010
+      expect(isHyphenCp(cp('֊'))).toBe(true) // 0x058a
+      expect(isHyphenCp(cp('゠'))).toBe(true) // 0x30a0
     })
 
     it('returns false for not a hyphen', () => {
-      expect(isHyphen(`'`)).toBe(false)
-      expect(isHyphen(`"`)).toBe(false)
-      expect(isHyphen(` `)).toBe(false)
-      expect(isHyphen(`=`)).toBe(false)
-      expect(isHyphen(`a`)).toBe(false)
-      expect(isHyphen(`0`)).toBe(false)
+      expect(isHyphenCp(cp(`'`))).toBe(false)
+      expect(isHyphenCp(cp('"'))).toBe(false)
+      expect(isHyphenCp(cp(' '))).toBe(false)
+      expect(isHyphenCp(cp('='))).toBe(false)
+      expect(isHyphenCp(cp('a'))).toBe(false)
+      expect(isHyphenCp(cp('0'))).toBe(false)
+    })
+  })
+
+  describe('isPunctuationCp', () => {
+    it('returns true for punctuation', () => {
+      expect(isPunctuationCp(cp(`'`))).toBe(true)
+      expect(isPunctuationCp(cp('’'))).toBe(true)
+      expect(isPunctuationCp(cp('"'))).toBe(true)
+      expect(isPunctuationCp(cp('.'))).toBe(true)
+      expect(isPunctuationCp(cp(','))).toBe(true)
+      expect(isPunctuationCp(cp(':'))).toBe(true)
+      expect(isPunctuationCp(cp('@'))).toBe(true)
+      expect(isPunctuationCp(cp('['))).toBe(true)
+      expect(isPunctuationCp(cp('~'))).toBe(true)
+      expect(isPunctuationCp(0x2000)).toBe(true) // lower bound of the 0x2000 block
+      expect(isPunctuationCp(cp('⁯'))).toBe(true) // 0x206f, upper bound
+      expect(isPunctuationCp(cp('　'))).toBe(true) // 0x3000, lower bound
+      expect(isPunctuationCp(cp('〿'))).toBe(true) // 0x303f, upper bound
+      expect(isPunctuationCp(0x00f7)).toBe(true)
+      expect(isPunctuationCp(0x00d7)).toBe(true)
+      expect(isPunctuationCp(0x061b)).toBe(true)
+    })
+
+    it('returns false for not punctuation', () => {
+      expect(isPunctuationCp(cp(' '))).toBe(false)
+      expect(isPunctuationCp(cp('a'))).toBe(false)
+      expect(isPunctuationCp(cp('A'))).toBe(false)
+      expect(isPunctuationCp(cp('я'))).toBe(false)
+      expect(isPunctuationCp(cp('š'))).toBe(false)
+      expect(isPunctuationCp(cp('0'))).toBe(false)
+      expect(isPunctuationCp(0x00e9)).toBe(false)
+      expect(isPunctuationCp(0x2fff)).toBe(false) // just below the 0x3000 block
+      expect(isPunctuationCp(0x3040)).toBe(false) // just above the 0x303f block
     })
   })
 
@@ -61,7 +126,6 @@ describe('punctuationUtils', () => {
       expect(isPunctuation(`{`)).toBe(true)
       expect(isPunctuation(`}`)).toBe(true)
       expect(isPunctuation(`~`)).toBe(true)
-      expect(isPunctuation(` `)).toBe(true)
       expect(isPunctuation(`⁯`)).toBe(true)
       expect(isPunctuation(`　`)).toBe(true)
       expect(isPunctuation(`〿`)).toBe(true)
@@ -76,9 +140,9 @@ describe('punctuationUtils', () => {
       expect(isPunctuation(`š`)).toBe(false)
       expect(isPunctuation(`0`)).toBe(false)
 
-      expect(isPunctuation(`\u00E9`)).toBe(false)
-      expect(isPunctuation(`\u00E8`)).toBe(false)
-      expect(isPunctuation(`\u00E7`)).toBe(false)
+      expect(isPunctuation(`é`)).toBe(false)
+      expect(isPunctuation(`è`)).toBe(false)
+      expect(isPunctuation(`ç`)).toBe(false)
     })
   })
 })
