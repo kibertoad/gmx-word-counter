@@ -18,10 +18,25 @@ const ES_LETTERS = 'A-Za-z0-9áéíóúüñÁÉÍÓÚÜÑ'
 const FR_LETTERS = '\\wàâäéèêëîïôöùûüçœæÀÂÄÉÈÊËÎÏÔÖÙÛÜÇŒÆ'
 const DE_LETTERS = '\\wäöüÄÖÜß'
 
+// Arabic-script languages join letter runs across the zero-width non-joiner
+// (U+200C), zero-width joiner (U+200D) and tatweel (U+0640), so a single word
+// split by any of those must stay one token instead of being counted as
+// several. Matching on \p{Script=Arabic} keeps this correct for every
+// Arabic-script language, not just Persian: Urdu, Pashto, Sindhi, Central
+// Kurdish and Uyghur all use the ZWNJ inside words the same way.
+// eslint-disable-next-line no-misleading-character-class
+const ARABIC_SCRIPT_REGEX =
+  /[\p{Script=Arabic}\p{M}]+(?:[‌‍ـ]+(?=[\p{Script=Arabic}\p{M}])[\p{Script=Arabic}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu
+
 const localeRegexMap: Record<string, RegExp> = {
-  // persian
-  /* eslint-disable no-misleading-character-class */
-  fa: /[\p{Script=Arabic}\p{M}]+(?:[‌‍ـ]+(?=[\p{Script=Arabic}\p{M}])[\p{Script=Arabic}\p{M}]+)*|(?<=\s|^)\d+[a-zA-Z]?(?=\s|$)|\d+(?:[.,:]\d+)*|\d+/gu,
+  // persian and the other Arabic-script languages share one regex (see above)
+  fa: ARABIC_SCRIPT_REGEX,
+  ar: ARABIC_SCRIPT_REGEX,
+  ur: ARABIC_SCRIPT_REGEX, // urdu
+  ps: ARABIC_SCRIPT_REGEX, // pashto
+  sd: ARABIC_SCRIPT_REGEX, // sindhi
+  ckb: ARABIC_SCRIPT_REGEX, // central kurdish (sorani)
+  ug: ARABIC_SCRIPT_REGEX, // uyghur
   ta: /[\u0B80-\u0BFF]+|\d+(?:[.,:]\d+)*/g,
 
   // dash is sometimes used in modern Telugu, but shouldn't be counted as a separate word,

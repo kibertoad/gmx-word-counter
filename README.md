@@ -37,4 +37,10 @@ GMX-V 2.0 describes the following word count factors:
 
 For logographic languages that GMX-V does not cover (Lao, Khmer and Myanmar), 0 is always returned as a word count.
 
+The same applies to Tibetan (`bo`) and Dzongkha (`dz`). Both are written in the Tibetan script, which separates syllables with the tsheg (U+0F0B) rather than spaces between words, and GMX-V defines no factor for them. There is also no dictionary-based word segmentation available (ICU, the reference [UAX #29](https://www.unicode.org/reports/tr29/) implementation, ships word dictionaries only for Burmese, Chinese/Japanese, Khmer, Lao and Thai). A reliable word count cannot be produced, so 0 is returned instead of letting generic splitting miscount every syllable as a word.
+
 Note that correct counting for logographic languages requires passing correct language subtag as a parameter. `gmx-word-counter` will not automatically detect that language is logographic if invalid language subtag is passed as a parameter.
+
+## Arabic-script languages
+
+Arabic-script languages join letter runs across the zero-width non-joiner (U+200C), zero-width joiner (U+200D) and tatweel (U+0640), so a single word split by any of those must not be counted as several. This is handled for Persian (`fa`), Arabic (`ar`), Urdu (`ur`), Pashto (`ps`), Sindhi (`sd`), Central Kurdish (`ckb`) and Uyghur (`ug`).
