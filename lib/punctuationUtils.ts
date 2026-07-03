@@ -47,7 +47,11 @@ export function isApostropheCp(codepoint: number) {
 
 export function isHyphenCp(codepoint: number) {
   return (
-    codepoint === 0x002d || codepoint === 0x2010 || codepoint === 0x058a || codepoint === 0x30a0
+    codepoint === 0x002d || // HYPHEN-MINUS
+    codepoint === 0x2010 || // HYPHEN
+    codepoint === 0x2011 || // NON-BREAKING HYPHEN
+    codepoint === 0x058a || // ARMENIAN HYPHEN
+    codepoint === 0x30a0 //    KATAKANA-HIRAGANA DOUBLE HYPHEN
   )
 }
 
@@ -59,15 +63,28 @@ export function isPunctuationCp(codepoint: number) {
     (codepoint >= 0x007b && codepoint <= 0x007e) ||
     (codepoint >= 0x2000 && codepoint <= 0x206f) ||
     (codepoint >= 0x3000 && codepoint <= 0x303f) ||
-    codepoint === 0x00f7 ||
-    codepoint === 0x00d7 ||
-    codepoint === 0x00a1 ||
-    codepoint === 0x00bf ||
-    codepoint === 0x0589 ||
-    codepoint === 0x05c3 ||
-    codepoint === 0x05be ||
-    codepoint === 0x05c0 ||
-    codepoint === 0x061b
+    // Halfwidth and Fullwidth Forms mirroring ASCII punctuation plus halfwidth
+    // CJK punctuation, deliberately excluding fullwidth digits (0xff10-0xff19)
+    // and letters (0xff21-0xff3a, 0xff41-0xff5a)
+    (codepoint >= 0xff01 && codepoint <= 0xff0f) ||
+    (codepoint >= 0xff1a && codepoint <= 0xff20) ||
+    (codepoint >= 0xff3b && codepoint <= 0xff40) ||
+    (codepoint >= 0xff5b && codepoint <= 0xff65) ||
+    codepoint === 0x00f7 || // DIVISION SIGN
+    codepoint === 0x00d7 || // MULTIPLICATION SIGN
+    codepoint === 0x00a1 || // INVERTED EXCLAMATION MARK
+    codepoint === 0x00bf || // INVERTED QUESTION MARK
+    codepoint === 0x00ab || // LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+    codepoint === 0x00bb || // RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+    codepoint === 0x0589 || // ARMENIAN FULL STOP
+    codepoint === 0x05c3 || // HEBREW PUNCTUATION SOF PASUQ
+    codepoint === 0x05be || // HEBREW PUNCTUATION MAQAF
+    codepoint === 0x05c0 || // HEBREW PUNCTUATION PASEQ
+    codepoint === 0x060c || // ARABIC COMMA
+    codepoint === 0x061b || // ARABIC SEMICOLON
+    codepoint === 0x061f || // ARABIC QUESTION MARK
+    codepoint === 0x0964 || // DEVANAGARI DANDA
+    codepoint === 0x0965 //   DEVANAGARI DOUBLE DANDA
   )
 }
 

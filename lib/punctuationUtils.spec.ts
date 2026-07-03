@@ -61,6 +61,10 @@ describe('punctuationUtils', () => {
       expect(isHyphenCp(cp('゠'))).toBe(true) // 0x30a0
     })
 
+    it('returns true for a non-breaking hyphen', () => {
+      expect(isHyphenCp(cp('‑'))).toBe(true) // 0x2011
+    })
+
     it('returns false for not a hyphen', () => {
       expect(isHyphenCp(cp(`'`))).toBe(false)
       expect(isHyphenCp(cp('"'))).toBe(false)
@@ -89,6 +93,14 @@ describe('punctuationUtils', () => {
       expect(isPunctuationCp(0x00f7)).toBe(true)
       expect(isPunctuationCp(0x00d7)).toBe(true)
       expect(isPunctuationCp(0x061b)).toBe(true)
+      expect(isPunctuationCp(cp('«'))).toBe(true) // 0x00ab guillemet
+      expect(isPunctuationCp(cp('»'))).toBe(true) // 0x00bb guillemet
+      expect(isPunctuationCp(cp('،'))).toBe(true) // 0x060c ARABIC COMMA
+      expect(isPunctuationCp(cp('؟'))).toBe(true) // 0x061f ARABIC QUESTION MARK
+      expect(isPunctuationCp(cp('।'))).toBe(true) // 0x0964 DEVANAGARI DANDA
+      expect(isPunctuationCp(0x0965)).toBe(true) // DEVANAGARI DOUBLE DANDA
+      expect(isPunctuationCp(cp('！'))).toBe(true) // 0xff01 fullwidth
+      expect(isPunctuationCp(cp('｣'))).toBe(true) // 0xff63 halfwidth
     })
 
     it('returns false for not punctuation', () => {
@@ -101,6 +113,9 @@ describe('punctuationUtils', () => {
       expect(isPunctuationCp(0x00e9)).toBe(false)
       expect(isPunctuationCp(0x2fff)).toBe(false) // just below the 0x3000 block
       expect(isPunctuationCp(0x3040)).toBe(false) // just above the 0x303f block
+      expect(isPunctuationCp(cp('０'))).toBe(false) // 0xff10 fullwidth digit
+      expect(isPunctuationCp(cp('Ａ'))).toBe(false) // 0xff21 fullwidth letter
+      expect(isPunctuationCp(cp('ａ'))).toBe(false) // 0xff41 fullwidth letter
     })
   })
 
@@ -129,6 +144,35 @@ describe('punctuationUtils', () => {
       expect(isPunctuation(`⁯`)).toBe(true)
       expect(isPunctuation(`　`)).toBe(true)
       expect(isPunctuation(`〿`)).toBe(true)
+    })
+
+    it('returns true for guillemets, Arabic and Devanagari punctuation', () => {
+      expect(isPunctuation(`«`)).toBe(true)
+      expect(isPunctuation(`»`)).toBe(true)
+      // ARABIC COMMA
+      expect(isPunctuation(`،`)).toBe(true)
+      // ARABIC QUESTION MARK
+      expect(isPunctuation(`؟`)).toBe(true)
+      // DEVANAGARI DANDA and DOUBLE DANDA
+      expect(isPunctuation(`।`)).toBe(true)
+      expect(isPunctuation(`॥`)).toBe(true)
+    })
+
+    it('returns true for fullwidth and halfwidth CJK punctuation', () => {
+      expect(isPunctuation(`！`)).toBe(true)
+      expect(isPunctuation(`？`)).toBe(true)
+      expect(isPunctuation(`：`)).toBe(true)
+      expect(isPunctuation(`（`)).toBe(true)
+      expect(isPunctuation(`）`)).toBe(true)
+      expect(isPunctuation(`｡`)).toBe(true)
+      expect(isPunctuation(`｢`)).toBe(true)
+      expect(isPunctuation(`｣`)).toBe(true)
+    })
+
+    it('returns false for fullwidth digits and letters', () => {
+      expect(isPunctuation(`０`)).toBe(false)
+      expect(isPunctuation(`Ａ`)).toBe(false)
+      expect(isPunctuation(`ａ`)).toBe(false)
     })
 
     it('returns false for not punctuation', () => {

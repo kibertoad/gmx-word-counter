@@ -159,4 +159,73 @@ describe('characterCounter', () => {
       whiteSpace: 8,
     })
   })
+
+  it('treats hyphens between astral (surrogate pair) letters as word-internal', () => {
+    // U+1D41A/U+1D41B MATHEMATICAL BOLD SMALL A/B are letters outside the BMP
+    testCalculation('\u{1D41A}-\u{1D41B}', {
+      punctuation: 0,
+      characters: 3,
+      whiteSpace: 0,
+    })
+
+    testCalculation('\u{1D41A}’\u{1D41B}', {
+      punctuation: 0,
+      characters: 3,
+      whiteSpace: 0,
+    })
+  })
+
+  it('treats non-breaking hyphens inside words as word-internal', () => {
+    // U+2011 NON-BREAKING HYPHEN
+    testCalculation('non‑breaking', {
+      punctuation: 0,
+      characters: 12,
+      whiteSpace: 0,
+    })
+  })
+
+  it('treats hyphens next to combining marks as word-internal', () => {
+    // q + U+0303 COMBINING TILDE does not compose under NFC
+    testCalculation('q̃-a', {
+      punctuation: 0,
+      characters: 4,
+      whiteSpace: 0,
+    })
+  })
+
+  it('counts fullwidth and halfwidth CJK punctuation as punctuation', () => {
+    testCalculation('你好！', {
+      punctuation: 1,
+      characters: 2,
+      whiteSpace: 0,
+    })
+
+    testCalculation('｢日本｣？', {
+      punctuation: 3,
+      characters: 2,
+      whiteSpace: 0,
+    })
+  })
+
+  it('counts guillemets, Arabic and Devanagari punctuation as punctuation', () => {
+    testCalculation('«mot»', {
+      punctuation: 2,
+      characters: 3,
+      whiteSpace: 0,
+    })
+
+    // Arabic question mark and comma
+    testCalculation('ما؟ نعم،', {
+      punctuation: 2,
+      characters: 5,
+      whiteSpace: 1,
+    })
+
+    // Devanagari danda
+    testCalculation('नमस्ते।', {
+      punctuation: 1,
+      characters: 6,
+      whiteSpace: 0,
+    })
+  })
 })
