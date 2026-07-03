@@ -33,14 +33,12 @@ export function isWhitespaceCp(codePoint: number) {
   return whitespacesSet.has(codePoint)
 }
 
-// ToDo - benchmark if precalculated codepoint comparison is faster
-
 export function isApostrophe(symbol: string) {
   return symbol === "'" || symbol == '\u2019'
 }
 
 export function isApostropheCp(codepoint: number) {
-  return isApostrophe(String.fromCodePoint(codepoint))
+  return codepoint === 0x0027 || codepoint === 0x2019
 }
 
 export function isHyphen(symbol: string) {
@@ -48,7 +46,9 @@ export function isHyphen(symbol: string) {
 }
 
 export function isHyphenCp(codepoint: number) {
-  return isHyphen(String.fromCodePoint(codepoint))
+  return (
+    codepoint === 0x002d || codepoint === 0x2010 || codepoint === 0x058a || codepoint === 0x30a0
+  )
 }
 
 export function isPunctuation(symbol: string) {
@@ -68,5 +68,21 @@ export function isPunctuation(symbol: string) {
 }
 
 export function isPunctuationCp(codepoint: number) {
-  return isPunctuation(String.fromCodePoint(codepoint))
+  return (
+    (codepoint >= 0x0021 && codepoint <= 0x002f) ||
+    (codepoint >= 0x003a && codepoint <= 0x0040) ||
+    (codepoint >= 0x005b && codepoint <= 0x0060) ||
+    (codepoint >= 0x007b && codepoint <= 0x007e) ||
+    (codepoint >= 0x2000 && codepoint <= 0x206f) ||
+    (codepoint >= 0x3000 && codepoint <= 0x303f) ||
+    codepoint === 0x00f7 ||
+    codepoint === 0x00d7 ||
+    codepoint === 0x00a1 ||
+    codepoint === 0x00bf ||
+    codepoint === 0x0589 ||
+    codepoint === 0x05c3 ||
+    codepoint === 0x05be ||
+    codepoint === 0x05c0 ||
+    codepoint === 0x061b
+  )
 }
