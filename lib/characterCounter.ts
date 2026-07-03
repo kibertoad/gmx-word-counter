@@ -4,7 +4,30 @@ const UnicodeAlphanumeric = /^[\p{L}\p{N}]*$/u
 
 // Does not need caching, as just computing it each time is actually faster
 function isCpUnicodeAlphanumeric(codePoint: number): boolean {
+  // Within ASCII the only \p{L} and \p{N} characters are A-Z, a-z and 0-9
+  if (codePoint < 0x80) {
+    return (
+      (codePoint >= 0x30 && codePoint <= 0x39) ||
+      (codePoint >= 0x41 && codePoint <= 0x5a) ||
+      (codePoint >= 0x61 && codePoint <= 0x7a)
+    )
+  }
   return UnicodeAlphanumeric.test(String.fromCodePoint(codePoint))
+}
+
+// Hyphens and apostrophes count as characters rather than punctuation when
+// they appear inside of a word, i.e. between two alphanumeric characters.
+function isWordInternalCp(text: string, i: number, cp: number): boolean {
+  if (!isHyphenCp(cp) && !isApostropheCp(cp)) {
+    return false
+  }
+  if (i <= 0 || i >= text.length - 1) {
+    return false
+  }
+  return (
+    isCpUnicodeAlphanumeric(text.codePointAt(i - 1)!) &&
+    isCpUnicodeAlphanumeric(text.codePointAt(i + 1)!)
+  )
 }
 
 export type Counts = {
@@ -27,12 +50,13 @@ export function countCharacters(text: string): Counts {
   }
 
   const normalizedText = text.normalize('NFC')
+  const length = normalizedText.length
 
   let totalCharacters = 0
   let whiteSpace = 0
   let punctuation = 0
 
-  for (var i = 0; i < normalizedText.length; i++) {
+  for (let i = 0; i < length; i++) {
     const cp = normalizedText.codePointAt(i)!
 
     // Check for surrogate pair and increment `i` if found
@@ -46,16 +70,9 @@ export function countCharacters(text: string): Counts {
       continue
     }
 
-    let isInWord = false
-    if (i > 0 && i < normalizedText.length - 1) {
-      const prev = normalizedText.codePointAt(i - 1)!
-      const next = normalizedText.codePointAt(i + 1)!
-      isInWord = isCpUnicodeAlphanumeric(prev) && isCpUnicodeAlphanumeric(next)
-    }
-
     // Punctuation characters are excluded, but hyphens and apostrophes are included
     // if they appear inside of a word.
-    if (isPunctuationCp(cp) && !(isInWord && (isHyphenCp(cp) || isApostropheCp(cp)))) {
+    if (isPunctuationCp(cp) && !isWordInternalCp(normalizedText, i, cp)) {
       punctuation++
       continue
     }
