@@ -339,6 +339,20 @@ describe('wordCounter', () => {
       testCalculation('Tengo 5 gatos y 3 euros', 'es', 6)
     })
 
+    it('Keeps decimal and grouped numbers as a single Spanish word', () => {
+      testCalculation('Cuesta 3,14 euros', 'es', 3)
+      testCalculation('Gane 1.000 euros', 'es', 3)
+    })
+
+    it('Counts standalone accented words in Spanish and German', () => {
+      // words made entirely of non-ASCII letters were dropped by the old \b anchors
+      testCalculation('la letra ñ', 'es', 3)
+      testCalculation('das Wort ö', 'de', 3)
+      // hyphenated compounds stay one word, lone hyphens are not counted
+      testCalculation('correo-e', 'es', 1)
+      testCalculation('E-Mail und - Post', 'de', 3)
+    })
+
     it('Counts words with ASCII apostrophes in unknown locale', () => {
       testCalculation("don't stop", '-', 2)
       testCalculation('don\u2019t stop', '-', 2)
@@ -361,6 +375,14 @@ describe('wordCounter', () => {
 
     it('Does not count fullwidth punctuation into logographic word counts', () => {
       testCalculation('\u4F60\u597D\uFF01', 'zh', 1)
+    })
+
+    it('Word-splits romanized text tagged with a Latin script subtag', () => {
+      // pinyin/romaji must be word-split, not divided as a logographic script
+      testCalculation('Beijing shi shou du', 'zh-Latn', 4)
+      testCalculation('Tokyo wa ii', 'ja-Latn', 3)
+      // native script subtags still route through logographic counting
+      testCalculation('\u4F60\u597D\u5417', 'zh-Hant', 1)
     })
   })
 })
