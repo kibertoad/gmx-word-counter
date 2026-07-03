@@ -30,6 +30,9 @@ const whitespacesSet = new Set(whitespaces)
 
 // This is faster than /\s/.test(String.fromCodePoint(codePoint))
 export function isWhitespaceCp(codePoint: number) {
+  if (codePoint < 0x0085) {
+    return codePoint === 0x0020 || (codePoint >= 0x0009 && codePoint <= 0x000d)
+  }
   return whitespacesSet.has(codePoint)
 }
 
